@@ -12,6 +12,7 @@ import {UpvotedComments} from "./components/UpvotedComments";
 import {Replies} from "./components/Replies";
 import {Comments} from "./components/Comments";
 import UpvotedSubmissions from "./components/UpvotedSubmissions";
+import Login from "./components/Login";
 
 
 export const Routes = () => {
@@ -31,6 +32,7 @@ export const Routes = () => {
                 <Route exact path="/contributions/:id" component={Contributions}/>
                 <Route exact path="/upvoted/submissions" component={UpvotedSubmissions}/>
                 <Route exact path="/upvoted/comments" component={UpvotedComments}/>
+                <Route exact path="/login" component={Login}/>
 
                 {/* es el replies/new/:id de ruby */}
                 <Route exact path="/comments/:id" component={Comments}/>

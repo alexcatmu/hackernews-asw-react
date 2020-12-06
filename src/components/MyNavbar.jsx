@@ -16,6 +16,8 @@ export class MyNavbar extends Component {
                 <Navbar.Brand href="/submit">submit</Navbar.Brand>
                 |
                 <Navbar.Brand href="/users/:id">usuariop</Navbar.Brand>
+                |
+                <Navbar.Brand href="/login">login</Navbar.Brand>
             </Navbar>
             <br />
         </>

@@ -5,9 +5,8 @@ import {getUpvotedSubmissions} from "../redux/actions";
 // Marc
 class UpvotedSubmissions extends Component {
 
-    async componentDidMount() {
-        await this.props.getUpvotedSubmissions();
-        console.log(this.props.upvotedSubmissions);
+    componentDidMount() {
+        this.props.getUpvotedSubmissions();
     }
 
     render() {
