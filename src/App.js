@@ -13,9 +13,6 @@ function App() {
         <BrowserRouter>
             <Routes/>
         </BrowserRouter>
-        <footer style={{borderTop: '2px solid black'}}>
-            GitHub | FAQ | Support | API | Security | Lists | Bookmarklet | Legal | Apply to YC | Contact
-        </footer>
     </div>
   );
 }

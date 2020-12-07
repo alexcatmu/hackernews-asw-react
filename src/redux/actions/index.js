@@ -1,2 +1,3 @@
-export {getUpvotedSubmissions, getUserByToken, logout} from "./UpvotedSubmissions"
-export {getComments} from "./Comments"
+export * from "./UpvotedSubmissions"
+export * from "./Comments"
+export * from './apikey'

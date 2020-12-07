@@ -1,13 +1,13 @@
-import {UPVOTED_SUBMISSIONS} from "../actionTypes";
+import {LOGIN, LOGOUT} from "../actionTypes";
 
 let url = "https://hackernews-asw-12b.herokuapp.com"
 
-export function getUpvotedSubmissions() {
-    let call = url + "/upvoted/submissions";
+export function getUserByToken(token) {
+    let call = url + "/users";
     const config = {
         headers: {
             'Accept': 'application/json',
-            'token': localStorage.getItem('token')
+            'token': token
         }
     };
     return function (dispatch) {
@@ -15,13 +15,17 @@ export function getUpvotedSubmissions() {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        dispatch({type: "UPVOTED_SUBMISSIONS", payload: json});
+                        dispatch({type: "LOGIN", payload: json});
                     })
                 }
                 else {
-                    //tractar unauthorized or forbidden
+                    dispatch({type: "LOGOUT"});
                 }
             })
             .catch(error => console.log('Error fetching data : ' + error.message));
     };
+}
+
+export function logout() {
+    return {type: LOGOUT};
 }
