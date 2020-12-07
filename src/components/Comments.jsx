@@ -6,17 +6,19 @@ import {getComments} from "../redux/actions/index";
 class Comments extends Component {
 
     componentDidMount() {
-        this.props.getComments();
+        this.props.getComments(this.props.match.params.id);
     }
 
     render() {
+        console.log('comments', this.props.comments)
         return (
             <>
-                {this.props.comments.map(s => {
-                    return (
-                        <p> hola pesicola </p>
-                    )
-                })}
+                {
+                    this.props.comments ?
+                        <p>tenemos comments</p>
+                    :
+                        <p>no tenemos comments</p>
+                }
             </>
         )
     }
