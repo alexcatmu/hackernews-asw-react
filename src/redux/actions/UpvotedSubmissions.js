@@ -1,4 +1,4 @@
-import {LOGOUT} from "./actionTypes";
+import {LOGOUT} from "../actionTypes";
 
 let url = "https://hackernews-asw-12b.herokuapp.com"
 

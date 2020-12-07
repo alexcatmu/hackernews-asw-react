@@ -1,8 +1,9 @@
-import {LOGIN, LOGOUT, UPVOTED_SUBMISSIONS} from "../actionTypes";
+import {LOGIN, LOGOUT, UPVOTED_SUBMISSIONS, COMMENTS} from "../actionTypes";
 
 const initialState = {
     upvotedSubmissions: [],
     currentUser: [],
+    comments: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -11,6 +12,11 @@ export default function rootReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 upvotedSubmissions: action.payload,
             });
+        }
+        case COMMENTS: {
+            return Object.assign({}, state, {
+                comments: action.payload
+            })
         }
         case LOGIN: {
             localStorage.setItem('user_id', action.payload.id);

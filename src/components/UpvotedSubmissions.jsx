@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getUpvotedSubmissions} from "../redux/actions";
+import {getUpvotedSubmissions} from "../redux/actions/index";
 
 // Marc
 class UpvotedSubmissions extends Component {

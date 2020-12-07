@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getUserByToken, logout} from "../redux/actions";
+import {getUserByToken, logout} from "../redux/actions/index";
 
 
 const token = localStorage.getItem('token');
