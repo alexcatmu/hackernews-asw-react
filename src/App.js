@@ -11,7 +11,7 @@ function App() {
             <MyNavbar/>
         </header>
         <BrowserRouter>
-            <Routes></Routes>
+            <Routes/>
         </BrowserRouter>
         <footer style={{borderTop: '2px solid black'}}>
             GitHub | FAQ | Support | API | Security | Lists | Bookmarklet | Legal | Apply to YC | Contact

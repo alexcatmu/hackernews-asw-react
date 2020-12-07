@@ -1,21 +1,49 @@
 import React from "react";
 import {connect} from "react-redux";
+import {getUserByToken, logout} from "../redux/actions";
+
+
+const token = localStorage.getItem('token');
 
 class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            input: ""
+            input: "",
+            text: "Log in"
         };
+    }
+
+    componentDidMount() {
+        if (token) {
+            this.setState({
+                input: token,
+                text: "Logout"
+            })
+        }
     }
 
     updateInput = input => {
         this.setState({ input });
     };
 
-    handleAddTodo = () => {
-        console.log(this.state.input);
+    handleAddTodo = async () => {
+        if (this.state.text === "Log in") {
+            await this.props.getUserByToken(this.state.input);
+            if (localStorage.getItem('token') !== null) {
+                this.setState({
+                    text: "Logout"
+                })
+            }
+        } else {
+            this.props.logout();
+            this.setState({
+                input: "",
+                text: "Log in"
+            });
+        }
+
     };
 
     render() {
@@ -26,19 +54,22 @@ class Login extends React.Component {
                     value={this.state.input}
                 />
                 <button className="add-todo" onClick={this.handleAddTodo}>
-                    Log In
+                    {this.state.text}
                 </button>
             </div>
         );
     }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
     return {
+        currentUser: state.currentUser
     }
 }
 
 const mapDispatchToProps = {
+    getUserByToken,
+    logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)

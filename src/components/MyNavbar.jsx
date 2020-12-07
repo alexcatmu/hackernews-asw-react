@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Navbar from 'react-bootstrap/Navbar'
+
 // all together
 export class MyNavbar extends Component {
     render() {
@@ -17,7 +18,7 @@ export class MyNavbar extends Component {
                 |
                 <Navbar.Brand href="/users/:id">usuariop</Navbar.Brand>
                 |
-                <Navbar.Brand href="/login">login</Navbar.Brand>
+                <Navbar.Brand href="/login">Manage API Key</Navbar.Brand>
             </Navbar>
             <br />
         </>

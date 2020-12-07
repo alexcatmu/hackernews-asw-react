@@ -1,4 +1,6 @@
-let url = "https://hackernews-asw-12b.herokuapp.com/"
+import {LOGOUT} from "./actionTypes";
+
+let url = "https://hackernews-asw-12b.herokuapp.com"
 
 export function getUpvotedSubmissions() {
     let call = url + "/upvoted/submissions";
@@ -22,4 +24,32 @@ export function getUpvotedSubmissions() {
             })
             .catch(error => console.log('Error fetching data : ' + error.message));
     };
+}
+
+export function getUserByToken(token) {
+    let call = url + "/users";
+    const config = {
+        headers: {
+            'Accept': 'application/json',
+            'token': token
+        }
+    };
+    return function (dispatch) {
+        return fetch(call, config)
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        dispatch({type: "LOGIN", payload: json});
+                    })
+                }
+                else {
+                    dispatch({type: "LOGOUT"});
+                }
+            })
+            .catch(error => console.log('Error fetching data : ' + error.message));
+    };
+}
+
+export function logout() {
+    return {type: LOGOUT};
 }
