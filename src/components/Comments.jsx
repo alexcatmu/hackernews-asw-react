@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getComments} from "../redux/actions/index";
+import {getComments, postReply} from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import {withStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -29,11 +29,11 @@ class Comments extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {content: '', comment_id: ''}
+        this.state = {content: '', comment_id: '', liked: false}
     }
 
-    componentDidMount() {
-        this.props.getComments(this.props.match.params.id);
+    async componentDidMount() {
+        this.props.getComments(this.props.match.params.id)
     }
 
 
@@ -43,8 +43,7 @@ class Comments extends Component {
             content: this.state.content,
             comment_id: this.props.comments.id
         }
-        console.log(body)
-        //hacer call post a hackernews/replies con body = body
+        this.props.postReply(body);
     }
 
     render() {
@@ -57,13 +56,13 @@ class Comments extends Component {
                         <Grid container spacing={3} justify={"center"} alignItems={"center"}>
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
-                                    {true ?
-                                        <FavoriteIcon style={{color: "red"}}/>
+                                    {this.state.liked ?
+                                        <FavoriteIcon style={{color: "red", cursor:"pointer"}} onClick={(e) => this.unlike(e)}/>
                                         :
-                                        <FavoriteBorderOutlinedIcon style={{color: "red"}}/>
+                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer"}} onClick={(e) => this.like(e)}/>
                                     }
                                     Created
-                                    By {this.props.comments.user_id} <Moment interval={1000}
+                                    By {this.props.comments.username} <Moment interval={1000}
                                                                              date={this.props.comments.created_at}
                                                                              durationFromNow/> ago </Paper>
                                 <Paper className={classes.paper}>{this.props.comments.content}</Paper>
@@ -98,6 +97,16 @@ class Comments extends Component {
     handleChange(event) {
         this.setState({content: event.target.value})
     }
+
+    like(event){
+        console.log("like it");
+        this.setState({liked: true});
+    }
+
+    unlike (event){
+        console.log("unliked IT");
+        this.setState({liked: false});
+    }
 }
 
 function mapStateToProps(state) {
@@ -108,6 +117,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     getComments,
+    postReply,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Comments));
