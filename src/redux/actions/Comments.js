@@ -1,4 +1,4 @@
-let url = "http://localhost:3000"
+let url = "https://hackernews-asw-12b.herokuapp.com"
 
 export function getComments(id) {
     let call = url + `/comments/${id}`;
