@@ -121,7 +121,7 @@ class MyNavbar extends Component {
                             <Link color="inherit" href={"/newest"}>new</Link>
                         </Typography>
                         <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/threads/:id"}>threads</Link>
+                            <Link color="inherit" href={`/threads/${localStorage.getItem('user_id')}`}>threads</Link>
                         </Typography>
                         <Typography variant="subheading" className={classes.padding} color="inherit">
                             <Link color="inherit" href={"/ask"}>ask</Link>

@@ -26,7 +26,7 @@ export class Threads extends Component {
   }
 
   componentDidMount() {
-    this.props.getThreads(localStorage.getItem("user_id"));
+    this.props.getThreads(this.props.match.params.id);
   }
 
   render() {
@@ -36,8 +36,8 @@ export class Threads extends Component {
     return (
       <>
 
-     {this.props.threads.map(t => {
-            
+     {this.props.threads && this.props.threads.map(t => {
+
           return (
             <div className={classes.root}>
               {this.props.threads ? (
@@ -66,7 +66,7 @@ export class Threads extends Component {
               )}
             </div>
           );
-        })} 
+        })}
       </>
     );
   }
