@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getComments} from "../redux/actions/index";
+import Grid from "@material-ui/core/Grid";
+import {Card, CardContent} from "@material-ui/core";
 
 // Alex
 class Comments extends Component {
@@ -15,7 +17,13 @@ class Comments extends Component {
             <>
                 {
                     this.props.comments ?
-                        <p>tenemos comments</p>
+                        <Grid container spacing={4}>
+                            <Card>
+                                <CardContent>
+                                    holiiii
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     :
                         <p>no tenemos comments</p>
                 }
