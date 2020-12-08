@@ -35,8 +35,8 @@ export class Threads extends Component {
     console.log("threads", this.props.threads);
     return (
       <>
-        {/*       
-        {this.props.threads.map((t) => {
+
+     {this.props.threads.map(t => {
             
           return (
             <div className={classes.root}>
@@ -49,14 +49,14 @@ export class Threads extends Component {
                 >
                   <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      {t.punctuation}
-                      points by {t.username}{" "}
+                      0
+                      points by {t.user_id}{" "}
                       <Moment
                         interval={1000}
-                        date={this.props.comments.created_at}
+                        date={t.created_at}
                         durationFromNow
                       />{" "}
-                      ago | on {t.contribution}{" "}
+                      ago | on {t.contribution_id}{" "}
                     </Paper>
                     <Paper className={classes.paper}>{t.content}</Paper>
                   </Grid>
@@ -66,7 +66,7 @@ export class Threads extends Component {
               )}
             </div>
           );
-        })} */}
+        })} 
       </>
     );
   }

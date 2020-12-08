@@ -11,14 +11,13 @@ export function getThreads(id) {
   return function (dispatch) {
     return fetch(call, config)
       .then((response) => {
-          if (response.ok) {
-            console.log("ok")
-              response.json().then((json) => {
-              console.log("json", json)
+        if (response.ok) {
+          console.log(`api call: ${call} ok`);
+          response.json().then((json) => {
             dispatch({ type: "THREADS", payload: json });
           });
         } else {
-          console.log("api call failed")
+          console.log(`api call: ${call} failed`);
         }
       })
       .catch((error) => console.log("Error fetching data : " + error.message));

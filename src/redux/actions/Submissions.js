@@ -12,12 +12,12 @@ export function getSubmissions(id) {
     return fetch(call, config)
       .then((response) => {
         if (response.ok) {
-          console.log("ok");
+          console.log(`api call: ${call} ok`);
           response.json().then((json) => {
             dispatch({ type: "SUBMISSIONS", payload: json });
           });
         } else {
-          console.log("api call failed");
+          console.log(`api call: ${call} failed`);
         }
       })
       .catch((error) => console.log("Error fetching data : " + error.message));
