@@ -2,7 +2,6 @@ let url = "https://hackernews-asw-12b.herokuapp.com"
 
 export function getComments(id) {
     let call = url + `/comments/${id}`;
-    console.log(call);
     const config = {
         headers: {
             'Accept': 'application/json',
@@ -13,7 +12,6 @@ export function getComments(id) {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        console.log(json)
                         dispatch({type: "COMMENTS", payload: json});
                     })
                 } else {

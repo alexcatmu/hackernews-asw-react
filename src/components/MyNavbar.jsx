@@ -1,73 +1,3 @@
-// import React from 'react';
-// import {makeStyles} from '@material-ui/core/styles';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import Link from '@material-ui/core/Link';
-// import AppBar from "@material-ui/core/AppBar";
-// import Grid from "@material-ui/core/Grid";
-// import Button from "@material-ui/core/Button";
-//
-// const useStyles = makeStyles((theme) => ({
-//     toolbar: {
-//         borderBottom: `1px solid ${theme.palette.divider}`,
-//     },
-//     toolbarTitle: {
-//         flex: 1,
-//     },
-//     toolbarSecondary: {
-//         justifyContent: 'space-between',
-//         overflowX: 'auto',
-//     },
-//     toolbarLink: {
-//         padding: theme.spacing(1),
-//         flexShrink: 0,
-//     },
-// }));
-// // all together
-// export default function MyNavbar(props) {
-//     const classes = useStyles();
-//
-//     return (
-//         <>
-//             <AppBar position="static">
-//                 <Toolbar>
-//                     <Grid
-//                         justify="space-between" // Add it here :)
-//                         container
-//                         spacing={24}
-//                     >
-//                         <Grid item>
-//                             <Typography type="title" color="inherit">
-//                                 Hacker News
-//                             </Typography>
-//                         </Grid>
-//                         <Grid item>
-//                             <Typography color="inherit">
-//                                 <Link color="inherit" href="/newest">new</Link>
-//                                 |
-//                                 <Link color="inherit" href="/threads/:id">threads</Link>
-//                                 |
-//                                 <Link color="inherit" href="/ask">ask</Link>
-//                                 |
-//                                 <Link color="inherit" href="/submit">submit</Link>
-//                                 |
-//                                 <Link color="inherit" href="/users/:id">usuario</Link>
-//                             </Typography>
-//                         </Grid>
-//
-//                         <Grid item>
-//                             <div>
-//                                 <Button raised color="accent">
-//                                     Login
-//                                 </Button>
-//                             </div>
-//                         </Grid>
-//                     </Grid>
-//                 </Toolbar>
-//             </AppBar>
-//         </>
-//     );
-// }
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -93,7 +23,9 @@ const styleSheet = (theme) => ({
         color: "white",
         cursor: "pointer",
     },
-    toolbar: theme.mixins.toolbar
+    toolbar: theme.mixins.toolbar,
+
+    myContentGrid: {width: "calc(100% - 10px)", margin: "auto"}
 })
 
 
@@ -213,10 +145,12 @@ class MyNavbar extends Component {
         return (
             <>
                 {this.state.drawerActivate ? this.createDrawer() : this.destroyDrawer()}
-                <div className={this.props.classes.toolbar}/>
-                <BrowserRouter>
-                    <Routes/>
-                </BrowserRouter>
+                    <div className={this.props.classes.toolbar}/>
+                    <div className={this.props.classes.myContentGrid}>
+                        <BrowserRouter>
+                            <Routes/>
+                        </BrowserRouter>
+                    </div>
             </>
         );
     }
