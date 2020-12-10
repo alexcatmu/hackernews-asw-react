@@ -31,12 +31,8 @@ class Login extends React.Component {
     handleAddTodo = async () => {
         if (this.state.text === "Log in") {
             await this.props.getUserByToken(this.state.input);
-            if (localStorage.getItem('token') !== null) {
-                this.setState({
-                    text: "Logout"
-                })
-            }
-            this.props.history.replace('/');
+            window.location.reload()
+
         } else {
             this.props.logout();
             this.setState({
@@ -62,8 +58,9 @@ class Login extends React.Component {
     }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
     return {
+        user: state.user
     }
 }
 
