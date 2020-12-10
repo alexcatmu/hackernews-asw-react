@@ -25,7 +25,7 @@ export class Submissions extends Component {
   }
 
   componentDidMount() {
-    this.props.getSubmissions(localStorage.getItem("user_id"));
+    this.props.getSubmissions(this.props.match.params.id);
   }
 
   render() {
@@ -34,7 +34,7 @@ export class Submissions extends Component {
     console.log("submissions", this.props.submissions);
     return (
       <>
-        {this.props.submissions.map((s) => {
+        {this.props.submissions && this.props.submissions.map((s) => {
           return (
             <div className={classes.root}>
               {this.props.submissions ? (
