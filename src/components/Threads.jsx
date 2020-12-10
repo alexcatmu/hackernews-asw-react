@@ -35,38 +35,36 @@ export class Threads extends Component {
     console.log("threads", this.props.threads);
     return (
       <>
-
-     {this.props.threads && this.props.threads.map(t => {
-
-          return (
-            <div className={classes.root}>
-              {this.props.threads ? (
-                <Grid
-                  container
-                  spacing={3}
-                  justify={"center"}
-                  alignItems={"center"}
-                >
-                  <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                      0
-                      points by {t.user_id}{" "}
-                      <Moment
-                        interval={1000}
-                        date={t.created_at}
-                        durationFromNow
-                      />{" "}
-                      ago | on {t.contribution_id}{" "}
-                    </Paper>
-                    <Paper className={classes.paper}>{t.content}</Paper>
+        {this.props.threads &&
+          this.props.threads.map((t) => {
+            return (
+              <div className={classes.root}>
+                {this.props.threads ? (
+                  <Grid
+                    container
+                    spacing={3}
+                    justify={"center"}
+                    alignItems={"center"}
+                  >
+                    <Grid item xs={12}>
+                      <Paper className={classes.paper}>
+                        0 points by {t.user_id}{" "}
+                        <Moment
+                          interval={1000}
+                          date={t.created_at}
+                          durationFromNow
+                        />{" "}
+                        ago | on {t.contribution_id}
+                        <br></br> {t.content}
+                      </Paper>
+                    </Grid>
                   </Grid>
-                </Grid>
-              ) : (
-                <p>el usuario no ha hecho comments</p>
-              )}
-            </div>
-          );
-        })}
+                ) : (
+                  <p>el usuario no ha hecho comments</p>
+                )}
+              </div>
+            );
+          })}
       </>
     );
   }

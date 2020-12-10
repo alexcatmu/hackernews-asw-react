@@ -34,37 +34,36 @@ export class Submissions extends Component {
     console.log("submissions", this.props.submissions);
     return (
       <>
-        {this.props.submissions && this.props.submissions.map((s) => {
-          return (
-            <div className={classes.root}>
-              {this.props.submissions ? (
-                <Grid
-                  container
-                  spacing={3}
-                  justify={"center"}
-                  alignItems={"center"}
-                >
-                  <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                      {s.title} {s.url}{" "}
-                    </Paper>
-                    <Paper className={classes.paper}>
-                      {s.punctuation} points by {s.user_id}{" "}
-                      <Moment
-                        interval={1000}
-                        date={s.created_at}
-                        durationFromNow
-                      />{" "}
-                      ago | unvote | 0 comments
-                    </Paper>
+        {this.props.submissions &&
+          this.props.submissions.map((s) => {
+            return (
+              <div className={classes.root}>
+                {this.props.submissions ? (
+                  <Grid
+                    container
+                    spacing={3}
+                    justify={"center"}
+                    alignItems={"center"}
+                  >
+                    <Grid item xs={12}>
+                      <Paper className={classes.paper}>
+                        {s.title} {s.url} <br></br>
+                        {s.punctuation} points by {s.user_id}{" "}
+                        <Moment
+                          interval={1000}
+                          date={s.created_at}
+                          durationFromNow
+                        />{" "}
+                        ago | unvote | 0 comments
+                      </Paper>
+                    </Grid>
                   </Grid>
-                </Grid>
-              ) : (
-                <p>el usuario no ha hecho contributions</p>
-              )}
-            </div>
-          );
-        })}
+                ) : (
+                  <p>el usuario no ha hecho contributions</p>
+                )}
+              </div>
+            );
+          })}
       </>
     );
   }
