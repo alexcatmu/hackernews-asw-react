@@ -70,7 +70,6 @@ class MyNavbar extends Component {
                         </Grid>
                     </Toolbar>
                 </AppBar>
-
                 <SwipeableDrawer
                     open={this.state.drawer}
                     onClose={() => {
@@ -98,7 +97,7 @@ class MyNavbar extends Component {
                             <ListItem key={3} button divider> <Link color="inherit" href={"/ask"}>ask</Link> </ListItem>
                             <ListItem key={3} button divider> <Link color="inherit" href={"/submit"}>submit</Link>
                             </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/users/:id"}>usuario</Link>
+                            <ListItem key={3} button divider> <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>usuario</Link>
                             </ListItem>
                         </List>
 
@@ -130,7 +129,7 @@ class MyNavbar extends Component {
                             <Link color="inherit" href={"/submit"}>submit</Link>
                         </Typography>
                         <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/users/:id"}>usuario</Link>
+                            <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>usuario</Link>
                         </Typography>
                         <Typography variant="subheading" className={classes.padding} color="inherit">
                             <Link color="inherit" href={"/login"}>Manage API Key</Link>

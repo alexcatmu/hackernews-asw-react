@@ -1,9 +1,9 @@
-import {LOGIN, LOGOUT, UPVOTED_SUBMISSIONS, COMMENTS,THREADS,SUBMISSIONS} from "../actionTypes";
+import {LOGIN, LOGOUT, UPVOTED_SUBMISSIONS, COMMENTS, THREADS, SUBMISSIONS, USER} from "../actionTypes";
 
 const initialState = {
     upvotedSubmissions: [],
-    currentUser: [],
-    comments: []
+    comments: [],
+    user: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -32,7 +32,7 @@ export default function rootReducer(state = initialState, action) {
         localStorage.setItem("user_id", action.payload.id);
         localStorage.setItem("token", action.payload.token);
         return Object.assign({}, state, {
-          currentUser: action.payload,
+          user: action.payload,
         });
       }
       case LOGOUT: {
@@ -40,6 +40,11 @@ export default function rootReducer(state = initialState, action) {
         localStorage.removeItem("token");
         return Object.assign({}, state, {
           currentUser: [],
+        });
+      }
+      case USER: {
+        return Object.assign({}, state, {
+          user: action.payload,
         });
       }
       default:

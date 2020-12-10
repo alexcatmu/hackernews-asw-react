@@ -36,6 +36,7 @@ class Login extends React.Component {
                     text: "Logout"
                 })
             }
+            this.props.history.replace('/');
         } else {
             this.props.logout();
             this.setState({
@@ -61,9 +62,8 @@ class Login extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {
-        currentUser: state.currentUser
     }
 }
 
