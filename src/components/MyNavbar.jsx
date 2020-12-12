@@ -117,24 +117,26 @@ class MyNavbar extends Component {
             <>
                 <AppBar>
                     <Toolbar style={{background: "#FF6600"}}>
-                        <Typography variant="h6" style={{flexGrow: 1}} color="inherit">Hacker News</Typography>
-                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/newest"}>New</Link>
+                        <Typography variant="h6" style={{flexGrow: 1}} color="textPrimary">
+                            <Link style={{textDecoration: "none"}} color="textPrimary" href={"/"}>Hacker News</Link>
                         </Typography>
                         <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={`/threads/${localStorage.getItem('user_id')}`}>Threads</Link>
+                            <Link color="textPrimary" href={"/newest"}>New</Link>
                         </Typography>
                         <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/ask"}>Ask</Link>
+                            <Link color="textPrimary" href={`/threads/${localStorage.getItem('user_id')}`}>Threads</Link>
                         </Typography>
                         <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/submit"}>Submit</Link>
+                            <Link color="textPrimary" href={"/ask"}>Ask</Link>
                         </Typography>
                         <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
+                            <Link color="textPrimary" href={"/submit"}>Submit</Link>
                         </Typography>
                         <Typography variant="subtitle1" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/login"}>Manage API key</Link>
+                            <Link color="textPrimary" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
+                        </Typography>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="textPrimary" href={"/login"}>Manage API key</Link>
                         </Typography>
                     </Toolbar>
                 </AppBar>

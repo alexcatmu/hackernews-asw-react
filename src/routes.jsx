@@ -1,6 +1,6 @@
 import {Home} from "./components/Home";
 import Threads from "./components/Threads"
-import {Switch, Route, Redirect} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import React from "react";
 import {Newest} from "./components/Newest";
 import {Ask} from "./components/Ask";
@@ -22,7 +22,7 @@ export const Routes = () => {
         <div>
             <Switch>
                 {/* El primer que vull que m'aparegui ha d'estar al primer fill del switch*/}
-                <Route exact path="/home" component={Home}/>
+                <Route exact path="/" component={Home}/>
                 <Route exact path="/newest" component={Newest}/>
                 <Route exact path="/submitted/:id" component={Submissions}/>
                 <Route exact path="/threads/:id" component={Threads}/>
@@ -38,9 +38,6 @@ export const Routes = () => {
                 <Route exact path="/comments/:id" component={Comments}/>
                 {/* replies de replies */}
                 <Route exact path="/replies/:id" component={Replies}/>
-                <Route path="/">
-                    <Redirect to="/home"/>
-                </Route>
             </Switch>
         </div>
     )
