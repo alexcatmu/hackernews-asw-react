@@ -57,7 +57,7 @@ class MyNavbar extends Component {
         return (
             <>
                 <AppBar>
-                    <Toolbar>
+                    <Toolbar style={{background: "#FF6600"}}>
                         <Grid container direction="row" justify="space-between" alignItems="center">
                             <MenuIcon
                                 className={this.props.classes.sideBarIcon}
@@ -65,8 +65,8 @@ class MyNavbar extends Component {
                                     this.setState({drawer: true})
                                 }}/>
 
-                            <Typography color="inherit" variant="headline">Hacker News</Typography>
-                            <Typography color="inherit" variant="headline"/>
+                            <Typography color="inherit" variant="h6">Hacker News</Typography>
+                            <Typography color="inherit" variant="h6"/>
                         </Grid>
                     </Toolbar>
                 </AppBar>
@@ -90,14 +90,16 @@ class MyNavbar extends Component {
                         }}>
 
                         <List className={this.props.classes.list}>
-                            <ListItem key={1} button divider> <Link color="inherit" href={"/newest"}>new</Link>
+                            <ListItem key={1} button divider> <Link color="inherit" href={"/newest"}>New</Link>
                             </ListItem>
-                            <ListItem key={2} button divider> <Link color="inherit" href={"/threads/:id"}>threads</Link>
+                            <ListItem key={2} button divider> <Link color="inherit" href={"/threads/:id"}>Threads</Link>
                             </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/ask"}>ask</Link> </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/submit"}>submit</Link>
+                            <ListItem key={3} button divider> <Link color="inherit" href={"/ask"}>Ask</Link> </ListItem>
+                            <ListItem key={3} button divider> <Link color="inherit" href={"/submit"}>Submit</Link>
                             </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>usuario</Link>
+                            <ListItem key={3} button divider> <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
+                            </ListItem>
+                            <ListItem key={3} button divider> <Link color="inherit" href={"/login"}> Manage API key</Link>
                             </ListItem>
                         </List>
 
@@ -114,25 +116,25 @@ class MyNavbar extends Component {
         return (
             <>
                 <AppBar>
-                    <Toolbar>
-                        <Typography variant="headline" style={{flexGrow: 1}} color="inherit">Hacker News</Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/newest"}>new</Link>
+                    <Toolbar style={{background: "#FF6600"}}>
+                        <Typography variant="h6" style={{flexGrow: 1}} color="inherit">Hacker News</Typography>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={"/newest"}>New</Link>
                         </Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={`/threads/${localStorage.getItem('user_id')}`}>threads</Link>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={`/threads/${localStorage.getItem('user_id')}`}>Threads</Link>
                         </Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/ask"}>ask</Link>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={"/ask"}>Ask</Link>
                         </Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/submit"}>submit</Link>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={"/submit"}>Submit</Link>
                         </Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>usuario</Link>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
                         </Typography>
-                        <Typography variant="subheading" className={classes.padding} color="inherit">
-                            <Link color="inherit" href={"/login"}>Manage API Key</Link>
+                        <Typography variant="subtitle1" className={classes.padding} color="inherit">
+                            <Link color="inherit" href={"/login"}>Manage API key</Link>
                         </Typography>
                     </Toolbar>
                 </AppBar>
