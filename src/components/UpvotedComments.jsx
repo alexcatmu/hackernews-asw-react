@@ -1,11 +1,95 @@
 import React, {Component} from "react";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Moment from "react-moment";
+import {connect} from "react-redux";
+import {withStyles} from "@material-ui/core";
+import {getUpvotedComments} from "../redux/actions";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import Link from "@material-ui/core/Link";
 // Marc
+
+const styleSheet = (theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: "left",
+        color: theme.palette.text.secondary,
+    },
+});
+
 export class UpvotedComments extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {liked: true}
+    }
+
+    componentDidMount() {
+        this.props.getUpvotedComments();
+    }
+
     render() {
+        const classes = this.props.classes;
         return (
             <>
-                hello up comment
+                {this.props.upvotedComments.map(comment => {
+                    return (
+                        <div className={classes.root}>
+                            <Grid
+                                container
+                                spacing={3}
+                                justify={"center"}
+                                alignItems={"center"}
+                            >
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper}>
+                                        {this.state.liked ?
+                                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                                            :
+                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                        }
+                                        &nbsp;{comment.likes} points by&nbsp;
+                                        <Link color="inherit" href={"/users/" + comment.user_id}>
+                                            {comment.username}
+                                        </Link>
+                                        &nbsp;
+                                        <Moment
+                                            interval={1000}
+                                            date={comment.created_at}
+                                            durationFromNow
+                                        />
+                                        &nbsp;ago | on &nbsp;
+                                        <Link color="inherit" href={"/contributions/" + comment.contribution_id}>
+                                            {comment.contrib_title}
+                                        </Link>
+                                        <br/>
+                                        {comment.content}
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    );
+                })}
             </>
-        )
+        );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        upvotedComments: state.upvotedComments,
+    };
+}
+
+const mapDispatchToProps = {
+    getUpvotedComments,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styleSheet)(UpvotedComments));

@@ -8,7 +8,7 @@ import {Submit} from "./components/Submit";
 import User from "./components/User";
 import Submissions from "./components/Submissions";
 import {Contributions} from "./components/Contributions";
-import {UpvotedComments} from "./components/UpvotedComments";
+import UpvotedComments from "./components/UpvotedComments";
 import {Replies} from "./components/Replies";
 import Comments from "./components/Comments";
 import UpvotedSubmissions from "./components/UpvotedSubmissions";

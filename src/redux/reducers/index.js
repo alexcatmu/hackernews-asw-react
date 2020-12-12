@@ -1,9 +1,20 @@
-import {LOGIN, LOGOUT, UPVOTED_SUBMISSIONS, COMMENTS, THREADS, SUBMISSIONS, USER} from "../actionTypes";
+import {
+  LOGIN,
+  LOGOUT,
+  UPVOTED_SUBMISSIONS,
+  COMMENTS,
+  THREADS,
+  SUBMISSIONS,
+  USER,
+  UPVOTED_COMMENTS
+} from "../actionTypes";
 
 const initialState = {
     upvotedSubmissions: [],
+    upvotedComments: [],
     comments: [],
     user: [],
+    threads: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -11,6 +22,12 @@ export default function rootReducer(state = initialState, action) {
       case UPVOTED_SUBMISSIONS: {
         return Object.assign({}, state, {
           upvotedSubmissions: action.payload,
+        });
+      }
+      case UPVOTED_COMMENTS: {
+        console.log(action.payload)
+        return Object.assign({}, state, {
+          upvotedComments: action.payload,
         });
       }
       case THREADS: {

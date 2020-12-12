@@ -25,7 +25,7 @@ class UpvotedSubmissions extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {liked: false}
+        this.state = {liked: true}
     }
     componentDidMount() {
         this.props.getUpvotedSubmissions();
@@ -46,46 +46,42 @@ class UpvotedSubmissions extends Component {
                 {this.props.upvotedSubmissions.map(sub => {
                     if (sub.user_id !== parseInt(localStorage.getItem('user_id'))) {
                         return (
-                            <div className={classes.root}>
-                                {this.props.upvotedSubmissions ? (
-                                    <Grid
-                                        container
-                                        spacing={3}
-                                        justify={"center"}
-                                        alignItems={"center"}
-                                    >
-                                        <Grid item xs={12}>
-                                            <Paper className={classes.paper}>
-                                                {this.state.liked ?
-                                                    <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
-                                                    :
-                                                    <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
-                                                }
-                                                &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
-                                                <Link color="inherit" href={sub.url}>
-                                                    {sub.url}
-                                                </Link>
-                                                <br/>
-                                                {sub.punctuation} points by&nbsp;
-                                                <Link color="inherit" href={"/users/" + sub.user_id}>
-                                                    {sub.username}
-                                                </Link>
-                                                &nbsp;
-                                                <Moment
-                                                    interval={1000}
-                                                    date={sub.created_at}
-                                                    durationFromNow
-                                                />
-                                                &nbsp;ago |&nbsp;
-                                                <Link color="inherit" href={"/contributions/" + sub.id}>
-                                                    {sub.ncomments} comments
-                                                </Link>
-                                            </Paper>
-                                        </Grid>
+                            <div key={sub.id} className={classes.root}>
+                                <Grid
+                                    container
+                                    spacing={3}
+                                    justify={"center"}
+                                    alignItems={"center"}
+                                >
+                                    <Grid item xs={12}>
+                                        <Paper className={classes.paper}>
+                                            {this.state.liked ?
+                                                <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                                                :
+                                                <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                            }
+                                            &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
+                                            <Link color="inherit" href={sub.url}>
+                                                {sub.url}
+                                            </Link>
+                                            <br/>
+                                            {sub.punctuation} points by&nbsp;
+                                            <Link color="inherit" href={"/users/" + sub.user_id}>
+                                                {sub.username}
+                                            </Link>
+                                            &nbsp;
+                                            <Moment
+                                                interval={1000}
+                                                date={sub.created_at}
+                                                durationFromNow
+                                            />
+                                            &nbsp;ago |&nbsp;
+                                            <Link color="inherit" href={"/contributions/" + sub.id}>
+                                                {sub.ncomments} comments
+                                            </Link>
+                                        </Paper>
                                     </Grid>
-                                ) : (
-                                    <p>el usuario no ha hecho contributions</p>
-                                )}
+                                </Grid>
                             </div>
                         );
                     }

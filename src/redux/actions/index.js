@@ -1,4 +1,4 @@
-export * from "./UpvotedSubmissions"
+export * from "./Upvoted"
 export * from "./Comments"
 export * from './User'
 export * from "./Threads"
