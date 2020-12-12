@@ -42,29 +42,29 @@ export class User extends Component {
                 <Grid container spacing={3} justify={"left"} alignItems={"left"}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <AccountCircle/> USER:
-                            <br/>
-                            {this.props.user.username}
+                            User:
+                            <br/><br/>
+                            <AccountCircle/> {this.props.user.username}
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <CakeIcon/> Created at:
-                            <br/>
-                            {this.props.user.created_at}
+                            Created at:
+                            <br/><br/>
+                            <CakeIcon/> {this.props.user.created_at}
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <FormatListNumberedIcon/> Karma:
-                            <br/>
-                            {this.props.user.karma}
+                            Karma:
+                            <br/><br/>
+                            <FormatListNumberedIcon/> {this.props.user.karma}
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             About:
-                            <br/>
+                            <br/><br/>
                             <TextField
                                 fullWidth
                                 id="about"
@@ -80,34 +80,30 @@ export class User extends Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Link component="button"
+                            <Link
                                   align="left"
-                                  variant="body2"
                                   color="inherit"
                                   onClick={() => this.props.history.replace("/submitted/" + this.props.user.id)}
                             >
                                 submissions</Link>
                             <Grid item>
-                                <Link component="button"
+                                <Link
                                       align="left"
-                                      variant="body2"
                                       color="inherit"
                                       onClick={() => this.props.history.replace("/threads/" + this.props.user.id)}
                                 >
                                     comments</Link>
                             </Grid>
                             <Grid item hidden={this.props.user.id !== parseInt(localStorage.getItem('user_id'))}>
-                                <Link component="button"
+                                <Link
                                       align="left"
-                                      variant="body2"
                                       color="inherit"
                                       onClick={() => this.props.history.replace("/upvoted/submissions")}
                                 >
                                     upvoted submissions</Link>
                                 &nbsp;/&nbsp;
-                                <Link component="button"
+                                <Link
                                       align="left"
-                                      variant="body2"
                                       color="inherit"
                                       onClick={() => this.props.history.replace("/upvoted/comments")}
                                 >
@@ -116,7 +112,7 @@ export class User extends Component {
                             </Grid>
                         </Paper>
                     </Grid>
-                    <Grid item hidden={this.props.user.id !== parseInt(localStorage.getItem('user_id'))}>
+                    <Grid item xs={12} hidden={this.props.user.id !== parseInt(localStorage.getItem('user_id'))}>
                         <Button onClick={this.handlePut} variant="outlined" >
                             Update
                         </Button>
