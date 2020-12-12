@@ -25,7 +25,7 @@ export class Submissions extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {liked: true}
+    this.state = {liked: false}
   }
 
   componentDidMount() {
