@@ -4,3 +4,4 @@ export * from './User'
 export * from "./Threads"
 export * from "./Submissions"
 export * from "./Newest"
+export * from "./Home"

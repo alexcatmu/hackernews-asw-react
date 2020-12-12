@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-//Alexandre
+//TODO: Alexandre
 export class Submit extends Component {
     render() {
         return (
