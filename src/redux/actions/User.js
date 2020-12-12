@@ -23,6 +23,30 @@ export function getUser(id) {
     };
 }
 
+export function putUser(about) {
+    let data= JSON.stringify({about})
+    let call = url + "/users/" + localStorage.getItem('user_id');
+
+    return function (dispatch) {
+        return fetch(call, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'token': localStorage.getItem('token')
+            },
+            body: data
+        })
+            .then(response => {
+                if (response.ok) {
+                    response.json().then(json => {
+                        dispatch({type: "USER", payload: json});
+                    })
+                }})
+            .catch(error => console.log('Authorization failed : ' + error.message));
+    }
+}
+
 export function getUserByToken(token) {
     let call = url + "/users";
     const config = {
