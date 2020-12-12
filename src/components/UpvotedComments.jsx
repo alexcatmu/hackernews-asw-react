@@ -62,7 +62,7 @@ export class UpvotedComments extends Component {
                                             date={comment.created_at}
                                             durationFromNow
                                         />
-                                        &nbsp;ago | on &nbsp;
+                                        &nbsp;ago | on&nbsp;
                                         <Link color="inherit" href={"/contributions/" + comment.contribution_id}>
                                             {comment.contrib_title}
                                         </Link>

@@ -6,6 +6,9 @@ import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import "moment-timezone";
 import Moment from "react-moment";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import Link from "@material-ui/core/Link";
 //Albert
 
 const styleSheet = (theme) => ({
@@ -14,19 +17,28 @@ const styleSheet = (theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: "left",
     color: theme.palette.text.secondary,
   },
 });
 export class Submissions extends Component {
-  classes;
+
   constructor(props) {
     super(props);
+    this.state = {liked: true}
   }
 
   componentDidMount() {
     this.props.getSubmissions(this.props.match.params.id);
   }
+
+  like = () => {
+    this.setState({liked: true});
+  };
+
+  unlike = () => {
+    this.setState({liked: false});
+  };
 
   render() {
     const classes = this.props.classes;
@@ -34,34 +46,45 @@ export class Submissions extends Component {
     console.log("submissions", this.props.submissions);
     return (
       <>
-        {this.props.submissions &&
-          this.props.submissions.map((s) => {
+        {this.props.submissions.map(s => {
             return (
-              <div className={classes.root}>
-                {this.props.submissions ? (
+                <div key={s.id} className={classes.root}>
                   <Grid
-                    container
-                    spacing={3}
-                    justify={"center"}
-                    alignItems={"center"}
+                      container
+                      spacing={3}
+                      justify={"center"}
+                      alignItems={"center"}
                   >
                     <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                        {s.title} {s.url} <br></br>
-                        {s.punctuation} points by {s.username}{" "}
+                        {this.state.liked ?
+                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                            :
+                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                        }
+                        &nbsp;&nbsp;{s.title}&nbsp;&nbsp;
+                        <Link color="inherit" href={s.url}>
+                          {s.url}
+                        </Link>
+                        <br/>
+                        {s.punctuation} points by&nbsp;
+                        <Link color="inherit" href={"/users/" + s.user_id}>
+                          {s.username}
+                        </Link>
+                        &nbsp;
                         <Moment
-                          interval={1000}
-                          date={s.created_at}
-                          durationFromNow
-                        />{" "}
-                        ago | unvote | {s.ncomments} comments
+                            interval={1000}
+                            date={s.created_at}
+                            durationFromNow
+                        />
+                        &nbsp;ago |&nbsp;
+                        <Link color="inherit" href={"/contributions/" + s.id}>
+                          {s.ncomments} comments
+                        </Link>
                       </Paper>
                     </Grid>
                   </Grid>
-                ) : (
-                  <p>el usuario no ha hecho contributions</p>
-                )}
-              </div>
+                </div>
             );
           })}
       </>

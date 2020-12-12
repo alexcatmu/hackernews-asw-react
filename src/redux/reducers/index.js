@@ -13,6 +13,7 @@ const initialState = {
     upvotedSubmissions: [],
     upvotedComments: [],
     comments: [],
+    submissions: [],
     user: [],
     threads: [],
 };
