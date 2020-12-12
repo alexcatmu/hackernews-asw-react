@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Moment from "react-moment";
 import {withStyles} from "@material-ui/core";
-import {User} from "./User";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";

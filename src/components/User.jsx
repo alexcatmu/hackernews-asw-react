@@ -83,14 +83,14 @@ export class User extends Component {
                             <Link
                                   align="left"
                                   color="inherit"
-                                  onClick={() => this.props.history.replace("/submitted/" + this.props.user.id)}
+                                  href={"/submitted/" + this.props.user.id}
                             >
                                 submissions</Link>
                             <Grid item>
                                 <Link
                                       align="left"
                                       color="inherit"
-                                      onClick={() => this.props.history.replace("/threads/" + this.props.user.id)}
+                                      href={/threads/ + this.props.user.id}
                                 >
                                     comments</Link>
                             </Grid>
@@ -98,14 +98,14 @@ export class User extends Component {
                                 <Link
                                       align="left"
                                       color="inherit"
-                                      onClick={() => this.props.history.replace("/upvoted/submissions")}
+                                      href={"/upvoted/submissions"}
                                 >
                                     upvoted submissions</Link>
                                 &nbsp;/&nbsp;
                                 <Link
                                       align="left"
                                       color="inherit"
-                                      onClick={() => this.props.history.replace("/upvoted/comments")}
+                                      href={"/upvoted/comments"}
                                 >
                                     upvoted comments</Link>
                                 &nbsp;(private)
