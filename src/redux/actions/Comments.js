@@ -7,13 +7,11 @@ export function getComments(id) {
             'Accept': 'application/json',
         }
     };
-    return function (dispatch) {
+    return function () {
         return fetch(call, config)
             .then(response => {
                 if (response.ok) {
-                    response.json().then(json => {
-                        dispatch({type: "COMMENTS", payload: json});
-                    })
+                    return response.json()
                 } else {
                     //tractar unauthorized or forbidden
                 }
@@ -26,7 +24,7 @@ export function postReply(bodyPost) {
     let data = JSON.stringify(bodyPost);
     let call = url + "/replies";
 
-    return function (dispatch) {
+    return function () {
         return fetch(call, {
             method: 'POST',
             headers: {
@@ -37,10 +35,11 @@ export function postReply(bodyPost) {
             body: data
         })
             .then(function (response) {
-                return response.json()
-            }).then(function (body) {
-            }).then(json => {
-                dispatch({type: "DATA_POST_COMPANY", payload: json});
+                if (response.ok){
+                    return response.json()
+                } else {
+                    //tractar unauthorized forbidden
+                }
             })
             .catch(error => console.log('Authorization failed : ' + error.message));
     }

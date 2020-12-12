@@ -29,11 +29,15 @@ class Comments extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {content: '', comment_id: '', liked: false}
+        this.state = {content: '', comment_id: '', liked: false, comments: ''}
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.props.getComments(this.props.match.params.id)
+            .then( data => {
+                console.log("ya hemos recuperado", data)
+                this.setState({comments: data})
+            });
     }
 
 
@@ -41,37 +45,43 @@ class Comments extends Component {
         event.preventDefault();
         let body = {
             content: this.state.content,
-            comment_id: this.props.comments.id
+            comment_id: this.state.comments.id
         }
-        this.props.postReply(body);
+        this.props.postReply(body)
+            .then((data) => {
+                let path = `/contributions/${this.state.comments.contribution_id}`
+                this.props.history.push(path);
+                console.log("holaaaa", data)
+            });
     }
 
     render() {
         const classes = this.props.classes
-        console.log('commjsx', this.props.comments);
         return (
             <div className={classes.root}>
                 {
-                    this.props.comments ?
+                    this.state.comments ?
                         <Grid container spacing={3} justify={"center"} alignItems={"center"}>
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
                                     {this.state.liked ?
-                                        <FavoriteIcon style={{color: "red", cursor:"pointer"}} onClick={(e) => this.unlike(e)}/>
+                                        <FavoriteIcon style={{color: "red", cursor: "pointer"}}
+                                                      onClick={(e) => this.unlike(e)}/>
                                         :
-                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer"}} onClick={(e) => this.like(e)}/>
+                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer"}}
+                                                                    onClick={(e) => this.like(e)}/>
                                     }
                                     Created
-                                    By {this.props.comments.username} <Moment interval={1000}
-                                                                             date={this.props.comments.created_at}
-                                                                             durationFromNow/> ago </Paper>
-                                <Paper className={classes.paper}>{this.props.comments.content}</Paper>
-                                <Paper className={classes.paper}>
+                                    By {this.state.comments.username} <Moment interval={1000}
+                                                                              date={this.state.comments.created_at}
+                                                                              durationFromNow/> ago
+                                    <br/>
+                                    <div style={{marginBottom: '20px'}}>{this.state.comments.content}</div>
                                     <form className={classes.root} onSubmit={(e) => this.handleSubmit(e)}>
                                         <div>
                                             <TextField
                                                 id="outlined-textarea"
-                                                label="Multiline Placeholder"
+                                                label="Your Reply"
                                                 placeholder="Placeholder"
                                                 multiline
                                                 variant="outlined"
@@ -88,7 +98,9 @@ class Comments extends Component {
                             </Grid>
                         </Grid>
                         :
-                        <p>no tenemos comments</p>
+                        <Grid container spacing={3} justify={"center"} alignItems={"center"}>
+                            <Grid item xs={12}>
+                                <Paper className={classes.paper}/></Grid></Grid>
                 }
             </div>
         )
@@ -98,12 +110,12 @@ class Comments extends Component {
         this.setState({content: event.target.value})
     }
 
-    like(event){
+    like(event) {
         console.log("like it");
         this.setState({liked: true});
     }
 
-    unlike (event){
+    unlike(event) {
         console.log("unliked IT");
         this.setState({liked: false});
     }
@@ -111,7 +123,6 @@ class Comments extends Component {
 
 function mapStateToProps(state) {
     return {
-        comments: state.comments,
     }
 }
 

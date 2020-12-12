@@ -2,7 +2,6 @@ import {
   LOGIN,
   LOGOUT,
   UPVOTED_SUBMISSIONS,
-  COMMENTS,
   THREADS,
   SUBMISSIONS,
   USER,
@@ -11,10 +10,9 @@ import {
 
 const initialState = {
     upvotedSubmissions: [],
-    upvotedComments: [],
-    comments: [],
-    submissions: [],
     user: [],
+    upvotedComments: [],
+    submissions: [],
     threads: [],
 };
 
@@ -39,11 +37,6 @@ export default function rootReducer(state = initialState, action) {
       case SUBMISSIONS: {
         return Object.assign({}, state, {
           submissions: action.payload,
-        });
-      }
-      case COMMENTS: {
-        return Object.assign({}, state, {
-          comments: action.payload,
         });
       }
       case LOGIN: {
