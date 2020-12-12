@@ -3,3 +3,4 @@ export * from "./Comments"
 export * from './User'
 export * from "./Threads"
 export * from "./Submissions"
+export * from "./Newest"
