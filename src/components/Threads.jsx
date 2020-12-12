@@ -48,13 +48,13 @@ export class Threads extends Component {
                   >
                     <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                        0 points by {t.user_id}{" "}
+                        0 points by {t.username}{" "}
                         <Moment
                           interval={1000}
                           date={t.created_at}
                           durationFromNow
                         />{" "}
-                        ago | on {t.contribution_id}
+                        ago | on {t.contrib_title}
                         <br></br> {t.content}
                       </Paper>
                     </Grid>

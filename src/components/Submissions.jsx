@@ -48,13 +48,13 @@ export class Submissions extends Component {
                     <Grid item xs={12}>
                       <Paper className={classes.paper}>
                         {s.title} {s.url} <br></br>
-                        {s.punctuation} points by {s.user_id}{" "}
+                        {s.punctuation} points by {s.username}{" "}
                         <Moment
                           interval={1000}
                           date={s.created_at}
                           durationFromNow
                         />{" "}
-                        ago | unvote | 0 comments
+                        ago | unvote | {s.ncomments} comments
                       </Paper>
                     </Grid>
                   </Grid>
