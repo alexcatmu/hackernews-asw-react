@@ -12,6 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import isLikedForUser from "./utils/Likers";
+import HowToRegIcon from "@material-ui/icons/HowToReg";
 // Alex
 
 const styleSheet = (theme) => ({
@@ -67,23 +68,28 @@ class Replies extends Component {
                         <Grid container spacing={3} justify={"center"} alignItems={"center"}>
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
-                                    {this.state.liked ?
-                                        <FavoriteIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
-                                                      onClick={(e) => this.unlike(e)}/>
+                                    {this.state.replies.user_id === parseInt(localStorage.getItem("user_id")) ?
+                                        <HowToRegIcon style={{color: "black", fontSize: "small"}}/>
                                         :
-                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
-                                                                    onClick={(e) => this.like(e)}/>
+                                        this.state.liked ?
+                                            <FavoriteIcon
+                                                style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                                onClick={(e) => this.unlike(e)}/>
+                                            :
+                                            <FavoriteBorderOutlinedIcon
+                                                style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                                onClick={(e) => this.like(e)}/>
                                     }&nbsp;
                                     Created
                                     By&nbsp;
                                     <Link color="inherit" href={`/users/${this.state.replies.user_id}`}>
                                         {this.state.replies.username}
                                     </Link>&nbsp;
-                                    <Moment interval={1000}
+                                    <Moment
                                             date={this.state.replies.created_at}
-                                            durationFromNow/> ago
+                                            fromNow/>
                                     <br/>
-                                    on:&nbsp;
+                                    <br/>on:&nbsp;
                                     <Link color="inherit" href={`/contributions/${this.state.replies.contribution_id}`}>
                                         {this.state.replies.contribution_title}
                                     </Link>
