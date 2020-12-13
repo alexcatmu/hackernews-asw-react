@@ -6,6 +6,7 @@ import {
   SUBMISSIONS,
   USER,
   HOME,
+  NEWEST,
   UPVOTED_COMMENTS
 } from "../actionTypes";
 
@@ -15,7 +16,8 @@ const initialState = {
   upvotedComments: [],
   submissions: [],
   threads: [],
-  home: []
+  home: [],
+  newest: [],
 }
 
 export default function rootReducer(state = initialState, action) {
@@ -34,6 +36,11 @@ export default function rootReducer(state = initialState, action) {
       case HOME: {
         return Object.assign({}, state, {
           home: action.payload,
+        });
+      }
+      case NEWEST: {
+        return Object.assign({}, state, {
+          newest: action.payload,
         });
       }
       case THREADS: {

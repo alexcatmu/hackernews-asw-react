@@ -2,7 +2,7 @@ import Home from "./components/Home";
 import Threads from "./components/Threads"
 import {Switch, Route} from "react-router-dom";
 import React from "react";
-import {Newest} from "./components/Newest";
+import Newest from "./components/Newest";
 import {Ask} from "./components/Ask";
 import {Submit} from "./components/Submit";
 import User from "./components/User";

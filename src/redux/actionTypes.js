@@ -6,3 +6,4 @@ export const THREADS = "THREADS";
 export const SUBMISSIONS = "SUBMISSIONS";
 export const USER = "USER";
 export const HOME = "HOME";
+export const NEWEST = "NEWEST";

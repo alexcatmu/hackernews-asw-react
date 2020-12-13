@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getNewest} from "../redux/actions/index";
+import {getNewest, unvote, vote} from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Moment from "react-moment";
@@ -23,44 +23,38 @@ const styleSheet = (theme) => ({
 
 export class Newest extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {liked: false}
-    }
-
     componentDidMount() {
         this.props.getNewest();
     }
 
-    like = () => {
-        this.setState({liked: true});
+    like = async(contribution_id) => {
+        await this.props.vote("contributions", contribution_id);
+        this.props.getNewest();
+
     };
-    unlike = () => {
-        this.setState({liked: false});
+
+    unlike = async(contribution_id) => {
+        await this.props.unvote("contributions", contribution_id);
+        this.props.getNewest();
     };
 
     render() {
         const classes = this.props.classes;
         return (
             <>
-                {this.props.upvotedSubmissions.map(sub => {
+                {this.props.newest.map(sub => {
                     return (
                         <div key={sub.id} className={classes.root}>
                             <Grid
                                 container
                                 spacing={3}
-                                justify={"center"}
-                                alignItems={"center"}
                             >
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper}>
-                                        {this.state.liked ?
-                                            <FavoriteIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
-                                                          onClick={this.unlike}/>
+                                        {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.unlike(sub.id)}/>
                                             :
-                                            <FavoriteBorderOutlinedIcon
-                                                style={{color: "red", cursor: "pointer", fontSize: "small"}}
-                                                onClick={this.like}/>
+                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.like(sub.id)}/>
                                         }
                                         &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
                                         <Link color="inherit" href={sub.url}>
@@ -90,23 +84,21 @@ export class Newest extends Component {
             </>
         )
     }
-
 }
 
 function mapStateToProps(state) {
     return {
-    newest: state.newest
-,
-}
+        newest: state.newest,
+    }
 }
 
-const mapDispatchToProps =
-{
+const mapDispatchToProps = {
     getNewest,
-}
-;
+    vote,
+    unvote,
+};
 
 export default connect(
-mapStateToProps,
-mapDispatchToProps)
-(withStyles(styleSheet)(getNewest));
+    mapStateToProps,
+    mapDispatchToProps)
+(withStyles(styleSheet)(Newest));
