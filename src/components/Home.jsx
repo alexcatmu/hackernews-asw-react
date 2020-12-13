@@ -9,7 +9,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
 
-//TODO: Alexandre
+
 const styleSheet = (theme) => ({
     root: {
         flexGrow: 1,
