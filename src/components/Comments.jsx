@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getComments, postReply} from "../redux/actions/index";
+import {getComments, postReply, unvote} from "../redux/actions/index";
 import isLikedForUser from "./utils/Likers"
 import Grid from "@material-ui/core/Grid";
 import {withStyles} from "@material-ui/core";
@@ -41,11 +41,6 @@ class Comments extends Component {
                 this.setState({comments: data, liked: found})
             });
     }
-
-    isLikedForUser = (element) => {
-        console.log("esto es un elemento", element)
-    }
-
 
     handleSubmit(event) {
         event.preventDefault();
@@ -125,12 +120,11 @@ class Comments extends Component {
     }
 
     like(event) {
-        console.log("like it");
         this.setState({liked: true});
     }
 
     unlike(event) {
-        console.log("unliked IT");
+        this.props.unvote("comments", this.state.comments.id);
         this.setState({liked: false});
     }
 }
@@ -142,6 +136,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     getComments,
     postReply,
+    unvote,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Comments));

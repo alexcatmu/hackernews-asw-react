@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getReplies, postReplyReply} from "../redux/actions/index";
+import {getReplies, postReplyReply, unvote} from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import {withStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -11,6 +11,7 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
+import isLikedForUser from "./utils/Likers";
 // Alex
 
 const styleSheet = (theme) => ({
@@ -36,8 +37,8 @@ class Replies extends Component {
     componentDidMount() {
         this.props.getReplies(this.props.match.params.id)
             .then(data => {
-                console.log("ya hemos recuperado", data)
-                this.setState({replies: data})
+                let found = data.replyLikes.some(isLikedForUser)
+                this.setState({replies: data, liked: found})
             });
     }
 
@@ -127,7 +128,7 @@ class Replies extends Component {
     }
 
     unlike(event) {
-        console.log("unliked IT");
+        this.props.unvote("replies", this.state.replies.id);
         this.setState({liked: false});
     }
 }
@@ -139,6 +140,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     getReplies,
     postReplyReply,
+    unvote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Replies));
