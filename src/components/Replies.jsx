@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getReplies, postReplyReply, unvote} from "../redux/actions/index";
+import {getReplies, postReplyReply, unvote, vote} from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import {withStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -123,7 +123,7 @@ class Replies extends Component {
     }
 
     like(event) {
-        console.log("like it");
+        this.props.vote("replies", this.state.replies.id);
         this.setState({liked: true});
     }
 
@@ -140,7 +140,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     getReplies,
     postReplyReply,
-    unvote
+    unvote,
+    vote
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(Replies));
