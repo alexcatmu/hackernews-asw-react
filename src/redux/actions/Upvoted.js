@@ -1,4 +1,5 @@
-import {UPVOTED_SUBMISSIONS, UPVOTED_COMMENTS} from "../actionTypes";
+
+import {UPVOTED_COMMENTS, UPVOTED_SUBMISSIONS} from "../actionTypes";
 
 let url = "https://hackernews-asw-12b.herokuapp.com"
 
@@ -15,7 +16,7 @@ export function getUpvotedSubmissions() {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        dispatch({type: "UPVOTED_SUBMISSIONS", payload: json});
+                        dispatch({type: UPVOTED_SUBMISSIONS, payload: json});
                     })
                 }
                 else {
@@ -39,7 +40,7 @@ export function getUpvotedComments() {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        dispatch({type: "UPVOTED_COMMENTS", payload: json});
+                        dispatch({type: UPVOTED_COMMENTS, payload: json});
                     })
                 }
                 else {

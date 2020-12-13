@@ -47,3 +47,27 @@ export function getNewest(){
             .catch((error)=> console.log("Error fetching data: " + error.message));
     };
 }
+
+export function getAsk(){
+    let call = url + '/ask';
+    const config = {
+        headers: {
+            Accept: "application/json",
+        },
+    };
+    return function(dispatch){
+        return fetch(call, config)
+            .then((response) =>{
+                if(response.ok){
+                    console.log(`api call: ${call} ok`);
+                    response.json().then((json) => {
+                        dispatch({
+                            type: "ASK", payload: json});
+                    });
+                } else{
+                    console.log(`api call: ${call} failed`);
+                }
+            })
+            .catch((error)=> console.log("Error fetching data: " + error.message));
+    };
+}

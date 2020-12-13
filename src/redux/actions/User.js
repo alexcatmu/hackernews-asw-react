@@ -60,11 +60,11 @@ export function getUserByToken(token) {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
-                        dispatch({type: "LOGIN", payload: json});
+                        dispatch({type: LOGIN, payload: json});
                     })
                 }
                 else {
-                    dispatch({type: "LOGOUT"});
+                    dispatch({type: LOGOUT});
                 }
             })
             .catch(error => console.log('Error fetching data : ' + error.message));
