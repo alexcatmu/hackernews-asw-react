@@ -8,6 +8,7 @@ import {withStyles} from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 
 const styleSheet = (theme) => ({
@@ -27,13 +28,13 @@ export class Home extends Component {
         this.props.getHome();
     }
 
-    like = async(contribution_id) => {
+    like = async (contribution_id) => {
         await this.props.vote("contributions", contribution_id);
         this.props.getHome();
 
     };
 
-    unlike = async(contribution_id) => {
+    unlike = async (contribution_id) => {
         await this.props.unvote("contributions", contribution_id);
         this.props.getHome();
     };
@@ -51,10 +52,17 @@ export class Home extends Component {
                             >
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper}>
-                                        {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
-                                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.unlike(sub.id)}/>
+                                        {sub.user_id === parseInt(localStorage.getItem("user_id")) ?
+                                            <HowToRegIcon style={{color: "black", fontSize: "small"}}/>
                                             :
-                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.like(sub.id)}/>
+                                            sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                                <FavoriteIcon
+                                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                                    onClick={() => this.unlike(sub.id)}/>
+                                                :
+                                                <FavoriteBorderOutlinedIcon
+                                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                                    onClick={() => this.like(sub.id)}/>
                                         }
                                         &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
                                         <Link color="inherit" href={sub.url}>
@@ -67,11 +75,10 @@ export class Home extends Component {
                                         </Link>
                                         &nbsp;
                                         <Moment
-                                            interval={1000}
                                             date={sub.created_at}
-                                            durationFromNow
+                                            fromNow
                                         />
-                                        &nbsp;ago |&nbsp;
+                                        &nbsp;|&nbsp;
                                         <Link color="inherit" href={"/contributions/" + sub.id}>
                                             {sub.ncomments} comments
                                         </Link>

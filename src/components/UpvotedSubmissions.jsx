@@ -23,9 +23,6 @@ const styleSheet = (theme) => ({
 
 class UpvotedSubmissions extends Component {
 
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         this.props.getUpvotedSubmissions();
     }
@@ -47,9 +44,9 @@ class UpvotedSubmissions extends Component {
                                     <Grid item xs={12}>
                                         <Paper className={classes.paper}>
                                             {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
-                                                <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}}/>
+                                                <FavoriteIcon style={{color: "red", fontSize: "small"}}/>
                                                 :
-                                                <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}}/>
+                                                <FavoriteBorderOutlinedIcon style={{color: "red", fontSize: "small"}}/>
                                             }
                                             &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
                                             <Link color="inherit" href={sub.url}>
@@ -66,7 +63,7 @@ class UpvotedSubmissions extends Component {
                                                 date={sub.created_at}
                                                 durationFromNow
                                             />
-                                            &nbsp;ago |&nbsp;
+                                            &nbsp;|&nbsp;
                                             <Link color="inherit" href={"/contributions/" + sub.id}>
                                                 {sub.ncomments} comments
                                             </Link>
@@ -76,6 +73,10 @@ class UpvotedSubmissions extends Component {
                             </div>
                         );
                     }
+                    return (
+                        <div/>
+                    );
+
                 })}
             </>
         )

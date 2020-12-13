@@ -23,11 +23,6 @@ const styleSheet = (theme) => ({
 
 export class UpvotedComments extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {liked: true}
-    }
-
     componentDidMount() {
         this.props.getUpvotedComments();
     }
@@ -47,10 +42,10 @@ export class UpvotedComments extends Component {
                             >
                                 <Grid item xs={12}>
                                     <Paper className={classes.paper}>
-                                        {this.state.liked ?
-                                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                                        {comment.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                            <FavoriteIcon style={{color: "red", fontSize: "small"}}/>
                                             :
-                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                            <FavoriteBorderOutlinedIcon style={{color: "red", fontSize: "small"}}/>
                                         }
                                         &nbsp;{comment.likes} points by&nbsp;
                                         <Link color="inherit" href={"/users/" + comment.user_id}>
@@ -60,9 +55,9 @@ export class UpvotedComments extends Component {
                                         <Moment
                                             interval={1000}
                                             date={comment.created_at}
-                                            durationFromNow
+                                            fromNow
                                         />
-                                        &nbsp;ago | on&nbsp;
+                                        &nbsp;| on&nbsp;
                                         <Link color="inherit" href={"/contributions/" + comment.contribution_id}>
                                             {comment.contrib_title}
                                         </Link>
