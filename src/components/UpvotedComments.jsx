@@ -32,41 +32,45 @@ export class UpvotedComments extends Component {
         return (
             <>
                 {this.props.upvotedComments.map(comment => {
-                    return (
-                        <div className={classes.root}>
-                            <Grid
-                                container
-                                spacing={3}
-                                justify={"center"}
-                                alignItems={"center"}
-                            >
-                                <Grid item xs={12}>
-                                    <Paper className={classes.paper}>
-                                        {comment.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
-                                            <FavoriteIcon style={{color: "red", fontSize: "small"}}/>
-                                            :
-                                            <FavoriteBorderOutlinedIcon style={{color: "red", fontSize: "small"}}/>
-                                        }
-                                        &nbsp;{comment.likes} points by&nbsp;
-                                        <Link color="inherit" href={"/users/" + comment.user_id}>
-                                            {comment.username}
-                                        </Link>
-                                        &nbsp;
-                                        <Moment
-                                            interval={1000}
-                                            date={comment.created_at}
-                                            fromNow
-                                        />
-                                        &nbsp;| on&nbsp;
-                                        <Link color="inherit" href={"/contributions/" + comment.contribution_id}>
-                                            {comment.contrib_title}
-                                        </Link>
-                                        <br/>
-                                        {comment.content}
-                                    </Paper>
+                    if (comment.user_id !== parseInt(localStorage.getItem('user_id'))) {
+                        return (
+                            <div className={classes.root}>
+                                <Grid
+                                    container
+                                    spacing={3}
+                                    justify={"center"}
+                                    alignItems={"center"}
+                                >
+                                    <Grid item xs={12}>
+                                        <Paper className={classes.paper}>
+                                            {comment.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                                <FavoriteIcon style={{color: "red", fontSize: "small"}}/>
+                                                :
+                                                <FavoriteBorderOutlinedIcon style={{color: "red", fontSize: "small"}}/>
+                                            }
+                                            &nbsp;{comment.likes} points by&nbsp;
+                                            <Link color="inherit" href={"/users/" + comment.user_id}>
+                                                {comment.username}
+                                            </Link>
+                                            &nbsp;
+                                            <Moment
+                                                date={comment.created_at}
+                                                fromNow
+                                            />
+                                            &nbsp;| on&nbsp;
+                                            <Link color="inherit" href={"/contributions/" + comment.contribution_id}>
+                                                {comment.contrib_title}
+                                            </Link>
+                                            <br/>
+                                            {comment.content}
+                                        </Paper>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </div>
+                            </div>
+                        );
+                    }
+                    return (
+                        <div/>
                     );
                 })}
             </>

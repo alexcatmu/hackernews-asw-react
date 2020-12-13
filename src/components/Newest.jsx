@@ -27,13 +27,13 @@ export class Newest extends Component {
         this.props.getNewest();
     }
 
-    like = async(contribution_id) => {
+    like = async (contribution_id) => {
         await this.props.vote("contributions", contribution_id);
         this.props.getNewest();
 
     };
 
-    unlike = async(contribution_id) => {
+    unlike = async (contribution_id) => {
         await this.props.unvote("contributions", contribution_id);
         this.props.getNewest();
     };

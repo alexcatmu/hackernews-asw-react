@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSubmissions } from "../redux/actions/index";
+import { getSubmissions, unvote, vote } from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +9,7 @@ import Moment from "react-moment";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
+import HowToRegIcon from "@material-ui/icons/HowToReg";
 //Albert
 
 const styleSheet = (theme) => ({
@@ -23,21 +24,19 @@ const styleSheet = (theme) => ({
 });
 export class Submissions extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {liked: false}
-  }
-
   componentDidMount() {
     this.props.getSubmissions(this.props.match.params.id);
   }
 
-  like = () => {
-    this.setState({liked: true});
+  like = async (contribution_id) => {
+    await this.props.vote("contributions", contribution_id);
+    this.props.getSubmissions(this.props.match.params.id);
+
   };
 
-  unlike = () => {
-    this.setState({liked: false});
+  unlike = async (contribution_id) => {
+    await this.props.unvote("contributions", contribution_id);
+    this.props.getSubmissions(this.props.match.params.id);
   };
 
   render() {
@@ -57,10 +56,17 @@ export class Submissions extends Component {
                   >
                     <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                        {this.state.liked ?
-                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                        {s.user_id === parseInt(localStorage.getItem("user_id")) ?
+                            <HowToRegIcon style={{color: "black", fontSize: "small"}}/>
                             :
-                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                            s.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                <FavoriteIcon
+                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                    onClick={() => this.unlike(s.id)}/>
+                                :
+                                <FavoriteBorderOutlinedIcon
+                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                    onClick={() => this.like(s.id)}/>
                         }
                         &nbsp;&nbsp;{s.title}&nbsp;&nbsp;
                         <Link color="inherit" href={s.url}>
@@ -99,6 +105,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getSubmissions,
+  vote,
+  unvote
 };
 
 export default connect(

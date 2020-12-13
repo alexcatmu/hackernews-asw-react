@@ -59,7 +59,6 @@ class UpvotedSubmissions extends Component {
                                             </Link>
                                             &nbsp;
                                             <Moment
-                                                interval={1000}
                                                 date={sub.created_at}
                                                 durationFromNow
                                             />
