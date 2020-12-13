@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getComments, postReply} from "../redux/actions/index";
+import isLikedForUser from "./utils/Likers"
 import Grid from "@material-ui/core/Grid";
 import {withStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -10,6 +11,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 // Alex
 
 const styleSheet = (theme) => ({
@@ -18,7 +20,7 @@ const styleSheet = (theme) => ({
     },
     paper: {
         padding: theme.spacing(2),
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
     },
 });
@@ -34,10 +36,14 @@ class Comments extends Component {
 
     componentDidMount() {
         this.props.getComments(this.props.match.params.id)
-            .then( data => {
-                console.log("ya hemos recuperado", data)
-                this.setState({comments: data})
+            .then(data => {
+                let found = data.commentLikes.some(isLikedForUser)
+                this.setState({comments: data, liked: found})
             });
+    }
+
+    isLikedForUser = (element) => {
+        console.log("esto es un elemento", element)
     }
 
 
@@ -65,17 +71,24 @@ class Comments extends Component {
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
                                     {this.state.liked ?
-                                        <FavoriteIcon style={{color: "red", cursor: "pointer"}}
+                                        <FavoriteIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
                                                       onClick={(e) => this.unlike(e)}/>
                                         :
-                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer"}}
+                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
                                                                     onClick={(e) => this.like(e)}/>
-                                    }
+                                    }&nbsp;
                                     Created
-                                    By {this.state.comments.username} <Moment interval={1000}
-                                                                              date={this.state.comments.created_at}
-                                                                              durationFromNow/> ago
-                                    <br/>
+                                    By&nbsp;
+                                    <Link color="inherit" href={`/users/${this.state.comments.user_id}`}>
+                                        {this.state.comments.username}
+                                    </Link>&nbsp;
+                                    <Moment interval={1000}
+                                            date={this.state.comments.created_at}
+                                            durationFromNow/> ago
+                                    on:&nbsp;
+                                    <Link color="inherit" href={`/contributions/${this.state.comments.contribution_id}`}>
+                                        {this.state.comments.contribution_title}
+                                    </Link>
                                     <div style={{marginBottom: '20px'}}>{this.state.comments.content}</div>
                                     <form className={classes.root} onSubmit={(e) => this.handleSubmit(e)}>
                                         <div>
@@ -85,6 +98,7 @@ class Comments extends Component {
                                                 placeholder="Placeholder"
                                                 multiline
                                                 variant="outlined"
+                                                fullWidth
                                                 value={this.state.content}
                                                 onChange={(e) => this.handleChange(e)}
                                             />
@@ -122,8 +136,7 @@ class Comments extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-    }
+    return {}
 }
 
 const mapDispatchToProps = {

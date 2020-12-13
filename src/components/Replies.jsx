@@ -10,6 +10,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 // Alex
 
 const styleSheet = (theme) => ({
@@ -18,7 +19,7 @@ const styleSheet = (theme) => ({
     },
     paper: {
         padding: theme.spacing(2),
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
     },
 });
@@ -34,7 +35,7 @@ class Replies extends Component {
 
     componentDidMount() {
         this.props.getReplies(this.props.match.params.id)
-            .then( data => {
+            .then(data => {
                 console.log("ya hemos recuperado", data)
                 this.setState({replies: data})
             });
@@ -66,17 +67,25 @@ class Replies extends Component {
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
                                     {this.state.liked ?
-                                        <FavoriteIcon style={{color: "red", cursor: "pointer"}}
+                                        <FavoriteIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
                                                       onClick={(e) => this.unlike(e)}/>
                                         :
-                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer"}}
+                                        <FavoriteBorderOutlinedIcon style={{color: "red", cursor: "pointer", fontSize: "small"}}
                                                                     onClick={(e) => this.like(e)}/>
-                                    }
+                                    }&nbsp;
                                     Created
-                                    By {this.state.replies.username} <Moment interval={1000}
-                                                                              date={this.state.replies.created_at}
-                                                                              durationFromNow/> ago
+                                    By&nbsp;
+                                    <Link color="inherit" href={`/users/${this.state.replies.user_id}`}>
+                                        {this.state.replies.username}
+                                    </Link>&nbsp;
+                                    <Moment interval={1000}
+                                            date={this.state.replies.created_at}
+                                            durationFromNow/> ago
                                     <br/>
+                                    on:&nbsp;
+                                    <Link color="inherit" href={`/contributions/${this.state.replies.contribution_id}`}>
+                                        {this.state.replies.contribution_title}
+                                    </Link>
                                     <div style={{marginBottom: '20px'}}>{this.state.replies.content}</div>
                                     <form className={classes.root} onSubmit={(e) => this.handleSubmit(e)}>
                                         <div>
@@ -85,6 +94,7 @@ class Replies extends Component {
                                                 label="Your Reply"
                                                 placeholder="Placeholder"
                                                 multiline
+                                                fullWidth
                                                 variant="outlined"
                                                 value={this.state.content}
                                                 onChange={(e) => this.handleChange(e)}
@@ -123,8 +133,7 @@ class Replies extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-    }
+    return {}
 }
 
 const mapDispatchToProps = {
