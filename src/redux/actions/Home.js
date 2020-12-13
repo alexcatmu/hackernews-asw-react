@@ -15,7 +15,7 @@ export function getHome(){
                     console.log(`api call: ${call} ok`);
                     response.json().then((json) => {
                         dispatch({
-                            type: "HOME", payload:json});
+                            type: "HOME", payload: json});
                     });
                 } else{
                     console.log(`api call: ${call} failed`);

@@ -1,4 +1,4 @@
-import {Home} from "./components/Home";
+import Home from "./components/Home";
 import Threads from "./components/Threads"
 import {Switch, Route} from "react-router-dom";
 import React from "react";

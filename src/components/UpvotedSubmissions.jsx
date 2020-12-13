@@ -25,19 +25,10 @@ class UpvotedSubmissions extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {liked: true}
     }
     componentDidMount() {
         this.props.getUpvotedSubmissions();
     }
-
-    like = () => {
-        this.setState({liked: true});
-    };
-
-    unlike = () => {
-        this.setState({liked: false});
-    };
 
     render() {
         const classes = this.props.classes;
@@ -55,10 +46,10 @@ class UpvotedSubmissions extends Component {
                                 >
                                     <Grid item xs={12}>
                                         <Paper className={classes.paper}>
-                                            {this.state.liked ?
-                                                <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                                            {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                                <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}}/>
                                                 :
-                                                <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                                <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}}/>
                                             }
                                             &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
                                             <Link color="inherit" href={sub.url}>

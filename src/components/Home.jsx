@@ -8,6 +8,7 @@ import {withStyles} from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
+import {unvote} from "../redux/actions/Votes";
 
 //TODO: Alexandre
 const styleSheet = (theme) => ({
@@ -25,66 +26,62 @@ export class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {liked: true}
     }
     componentDidMount() {
         this.props.getHome();
     }
 
-    like = () => {
-        this.setState({liked: true});
+    like = (hola) => {
+        console.log("hello like");
     };
 
-    unlike = () => {
-        this.setState({liked: false});
+    unlike = (contribution_id) => {
+       this.props.unvote("contributions", contribution_id);
+       this.componentDidMount();
     };
 
     render() {
         const classes = this.props.classes;
         return (
             <>
-                {this.props.getHome.map(sub => {
-                    if (sub.user_id !== parseInt(localStorage.getItem('user_id'))) {
-                        return (
-                            <div key={sub.id} className={classes.root}>
-                                <Grid
-                                    container
-                                    spacing={3}
-                                    justify={"center"}
-                                    alignItems={"center"}
-                                >
-                                    <Grid item xs={12}>
-                                        <Paper className={classes.paper}>
-                                            {this.state.liked ?
-                                                <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
-                                                :
-                                                <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
-                                            }
-                                            &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
-                                            <Link color="inherit" href={sub.url}>
-                                                {sub.url}
-                                            </Link>
-                                            <br/>
-                                            {sub.punctuation} points by&nbsp;
-                                            <Link color="inherit" href={"/users/" + sub.user_id}>
-                                                {sub.username}
-                                            </Link>
-                                            &nbsp;
-                                            <Moment
-                                                interval={1000}
-                                                date={sub.created_at}
-                                                durationFromNow
-                                            />
-                                            &nbsp;ago |&nbsp;
-                                            <Link color="inherit" href={"/contributions/" + sub.id}>
-                                                {sub.ncomments} comments
-                                            </Link>
-                                        </Paper>
-                                    </Grid>
+                {this.props.home.map(sub => {
+                    return (
+                        <div key={sub.id} className={classes.root}>
+                            <Grid
+                                container
+                                spacing={3}
+                            >
+                                <Grid item xs={12}>
+                                    <Paper className={classes.paper}>
+                                        {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.unlike(sub.id)}/>
+                                            :
+                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                        }
+                                        &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
+                                        <Link color="inherit" href={sub.url}>
+                                            {sub.url}
+                                        </Link>
+                                        <br/>
+                                        {sub.punctuation} points by&nbsp;
+                                        <Link color="inherit" href={"/users/" + sub.user_id}>
+                                            {sub.username}
+                                        </Link>
+                                        &nbsp;
+                                        <Moment
+                                            interval={1000}
+                                            date={sub.created_at}
+                                            durationFromNow
+                                        />
+                                        &nbsp;ago |&nbsp;
+                                        <Link color="inherit" href={"/contributions/" + sub.id}>
+                                            {sub.ncomments} comments
+                                        </Link>
+                                    </Paper>
                                 </Grid>
-                            </div>
-                        );
-                    }
+                            </Grid>
+                        </div>
+                    );
                 })}
             </>
         )
@@ -93,17 +90,18 @@ export class Home extends Component {
 
 function mapStateToProps(state) {
     return {
-        getHome: state.getHome,
+        home: state.home,
     }
 }
 
 const mapDispatchToProps = {
     getHome,
+    unvote,
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps)
-(withStyles(styleSheet)(getHome));
+(withStyles(styleSheet)(Home));
 
 

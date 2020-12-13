@@ -5,16 +5,18 @@ import {
   THREADS,
   SUBMISSIONS,
   USER,
+  HOME,
   UPVOTED_COMMENTS
 } from "../actionTypes";
 
 const initialState = {
-    upvotedSubmissions: [],
-    user: [],
-    upvotedComments: [],
-    submissions: [],
-    threads: [],
-};
+  upvotedSubmissions: [],
+  user: [],
+  upvotedComments: [],
+  submissions: [],
+  threads: [],
+  home: []
+}
 
 export default function rootReducer(state = initialState, action) {
     switch (action.type) {
@@ -27,6 +29,11 @@ export default function rootReducer(state = initialState, action) {
         console.log(action.payload)
         return Object.assign({}, state, {
           upvotedComments: action.payload,
+        });
+      }
+      case HOME: {
+        return Object.assign({}, state, {
+          home: action.payload,
         });
       }
       case THREADS: {
