@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getThreads } from "../redux/actions/index";
+import { getThreads, vote, unvote } from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -9,6 +9,7 @@ import Moment from "react-moment";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
+import HowToRegIcon from "@material-ui/icons/HowToReg";
 
 // Albert
 const styleSheet = (theme) => ({
@@ -24,21 +25,19 @@ const styleSheet = (theme) => ({
 
 export class Threads extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {liked: false}
-  }
-
   componentDidMount() {
     this.props.getThreads(this.props.match.params.id);
   }
 
-  like = () => {
-    this.setState({liked: true});
+  like = async (contribution_id) => {
+    await this.props.vote("comments", contribution_id);
+    this.props.getSubmissions(this.props.match.params.id);
+
   };
 
-  unlike = () => {
-    this.setState({liked: false});
+  unlike = async (contribution_id) => {
+    await this.props.unvote("comments", contribution_id);
+    this.props.getSubmissions(this.props.match.params.id);
   };
 
   render() {
@@ -58,10 +57,17 @@ export class Threads extends Component {
                   >
                     <Grid item xs={12}>
                       <Paper className={classes.paper}>
-                        {this.state.liked ?
-                            <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.unlike}/>
+                        {t.user_id === parseInt(localStorage.getItem("user_id")) ?
+                            <HowToRegIcon style={{color: "black", fontSize: "small"}}/>
                             :
-                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                            t.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
+                                <FavoriteIcon
+                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                    onClick={() => this.unlike(t.id)}/>
+                                :
+                                <FavoriteBorderOutlinedIcon
+                                    style={{color: "red", cursor: "pointer", fontSize: "small"}}
+                                    onClick={() => this.like(t.id)}/>
                         }
                         &nbsp;{t.likes} points by&nbsp;
                         <Link color="inherit" href={"/users/" + t.user_id}>
@@ -98,6 +104,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   getThreads,
+  vote,
+  unvote
 };
 
 export default connect(
