@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getHome} from "../redux/actions/index";
+import {getHome, unvote, vote} from "../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Moment from "react-moment";
@@ -8,7 +8,6 @@ import {withStyles} from "@material-ui/core";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import Link from "@material-ui/core/Link";
-import {unvote} from "../redux/actions/Votes";
 
 //TODO: Alexandre
 const styleSheet = (theme) => ({
@@ -24,20 +23,19 @@ const styleSheet = (theme) => ({
 
 export class Home extends Component {
 
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         this.props.getHome();
     }
 
-    like = (hola) => {
-        console.log("hello like");
+    like = async(contribution_id) => {
+        await this.props.vote("contributions", contribution_id);
+        this.props.getHome();
+
     };
 
-    unlike = (contribution_id) => {
-       this.props.unvote("contributions", contribution_id);
-       this.componentDidMount();
+    unlike = async(contribution_id) => {
+        await this.props.unvote("contributions", contribution_id);
+        this.props.getHome();
     };
 
     render() {
@@ -56,7 +54,7 @@ export class Home extends Component {
                                         {sub.users_liked.includes(parseInt(localStorage.getItem('user_id'))) ?
                                             <FavoriteIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.unlike(sub.id)}/>
                                             :
-                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={this.like}/>
+                                            <FavoriteBorderOutlinedIcon style={{color: "red", cursor:"pointer", fontSize: "small"}} onClick={() => this.like(sub.id)}/>
                                         }
                                         &nbsp;&nbsp;{sub.title}&nbsp;&nbsp;
                                         <Link color="inherit" href={sub.url}>
@@ -96,6 +94,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     getHome,
+    vote,
     unvote,
 };
 
