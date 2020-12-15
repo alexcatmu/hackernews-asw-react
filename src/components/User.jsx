@@ -25,8 +25,10 @@ const styleSheet = (theme) => ({
 export class User extends Component {
 
     componentDidMount() {
+        if (this.props.match.params.id === "null") {
+            this.props.history.push("/login");
+        }
         this.props.getUser(this.props.match.params.id);
-        console.log(this.props.user);
     }
 
     handlePut = () => {
@@ -39,7 +41,7 @@ export class User extends Component {
         return (
             <>
             <div className={classes.root}>
-                <Grid container spacing={3} justify={"left"} alignItems={"left"}>
+                <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             User:

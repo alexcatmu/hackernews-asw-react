@@ -66,6 +66,7 @@ export function getUserByToken(token) {
                 else {
                     dispatch({type: LOGOUT});
                 }
+                return response;
             })
             .catch(error => console.log('Error fetching data : ' + error.message));
     };

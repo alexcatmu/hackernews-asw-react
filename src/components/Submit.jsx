@@ -39,13 +39,16 @@ export class Submit extends Component {
 
     handleSubmit() {
         //TODO: Controlar que no está vacío el título
-        console.log(this.state)
         this.props.submit(this.state.title, this.state.url, this.state.text)
             .then((response) => {
+                console.log(response)
                 if (response.error) {
                     this.setState({error: response.error})
-
-                } else this.props.history.push('/newest');
+                }
+                else if (response.contribution_id) {
+                    this.props.history.push('/contributions/' + response.contribution_id);
+                }
+                else this.props.history.push('/newest');
             });
     }
 
@@ -117,7 +120,7 @@ export class Submit extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {}
 }
 

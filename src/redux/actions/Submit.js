@@ -4,7 +4,7 @@ export function submit(title, url, text) {
     let call = baseUrl + "/contributions/";
     let data = JSON.stringify({title, url, text})
 
-    return function (dispatch) {
+    return function () {
         return fetch(call, {
             method: 'POST',
             headers: {
@@ -15,7 +15,7 @@ export function submit(title, url, text) {
             body: data
         })
             .then(response => {
-                return response.json()
+                return response.json();
             })
             .catch(error => console.log('Something failed : ' + error.message));
     }

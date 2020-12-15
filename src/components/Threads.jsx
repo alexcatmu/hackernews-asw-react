@@ -26,6 +26,9 @@ const styleSheet = (theme) => ({
 export class Threads extends Component {
 
   componentDidMount() {
+    if (this.props.match.params.id === "null") {
+      this.props.history.push("/login");
+    }
     this.props.getThreads(this.props.match.params.id);
   }
 
