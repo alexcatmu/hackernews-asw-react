@@ -93,17 +93,17 @@ class Login extends React.Component {
                             <Paper className={classes.paper}>
                                 <TextField
                                     id="key"
+                                    fullWidth
                                     label="API KEY"
                                     variant="outlined"
                                     value={this.state.key}
                                     onChange={(e) => this.handleChange(e)}
                                 />
-                                &nbsp; &nbsp; &nbsp;
+                                <br/><br/>
                                 <Button size="large" onClick={() => this.handleLogin()} variant="outlined">
                                     {this.state.text}
                                 </Button>
                             </Paper>
-
                         </Grid>
                     </Grid>
                 </div>
