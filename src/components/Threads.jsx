@@ -45,8 +45,6 @@ export class Threads extends Component {
 
   render() {
     const classes = this.props.classes;
-    console.log("Local Storage: ", localStorage);
-    console.log("threads", this.props.threads);
     return (
       <>
         {this.props.threads.map(t => {

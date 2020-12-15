@@ -41,7 +41,6 @@ export class Submit extends Component {
         //TODO: Controlar que no está vacío el título
         this.props.submit(this.state.title, this.state.url, this.state.text)
             .then((response) => {
-                console.log(response)
                 if (response.error) {
                     this.setState({error: response.error})
                 }
@@ -103,8 +102,6 @@ export class Submit extends Component {
                                     value={this.state.text}
                                     onChange={(e) => this.handleChange(e)}
                                 />
-
-
                             </Paper>
                         </Grid>
                         <Grid item xs={12}>

@@ -53,7 +53,6 @@ class Comments extends Component {
             .then((data) => {
                 let path = `/contributions/${this.state.comments.contribution_id}`
                 this.props.history.push(path);
-                console.log("holaaaa", data)
             });
     }
 

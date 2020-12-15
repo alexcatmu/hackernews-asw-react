@@ -30,7 +30,6 @@ export default function rootReducer(state = initialState, action) {
             });
         }
         case UPVOTED_COMMENTS: {
-            console.log(action.payload)
             return Object.assign({}, state, {
                 upvotedComments: action.payload,
             });
@@ -56,8 +55,6 @@ export default function rootReducer(state = initialState, action) {
             });
         }
         case LOGIN: {
-            localStorage.setItem("user_id", action.payload.id);
-            localStorage.setItem("token", action.payload.token);
             return Object.assign({}, state, {
                 user: action.payload,
             });

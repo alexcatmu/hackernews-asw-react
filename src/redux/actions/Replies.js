@@ -1,4 +1,5 @@
 let url = "https://hackernews-asw-12b.herokuapp.com"
+// let url = "http://localhost:3000"
 
 export function getReplies(id) {
     let call = url + `/replies/${id}`;

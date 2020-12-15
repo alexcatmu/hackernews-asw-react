@@ -2,6 +2,7 @@
 import {UPVOTED_COMMENTS, UPVOTED_SUBMISSIONS} from "../actionTypes";
 
 let url = "https://hackernews-asw-12b.herokuapp.com"
+// let url = "http://localhost:3000"
 
 export function getUpvotedSubmissions() {
     let call = url + "/upvoted/submissions";

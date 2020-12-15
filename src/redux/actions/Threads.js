@@ -1,4 +1,5 @@
 let url = "https://hackernews-asw-12b.herokuapp.com";
+//let url = "http://localhost:3000"
 
 export function getThreads(id) {
     let call = url + `/threads/${id}`;
@@ -17,7 +18,6 @@ export function getThreads(id) {
                     })
                 }
                 else {
-                    console.log(`api call: ${call} failed`);
                 }
             })
             .catch(error => console.log("Error fetching data : " + error.message));

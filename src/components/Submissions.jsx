@@ -41,8 +41,6 @@ export class Submissions extends Component {
 
   render() {
     const classes = this.props.classes;
-    console.log("Local Storage: ", localStorage);
-    console.log("submissions", this.props.submissions);
     return (
       <>
         {this.props.submissions.map(s => {

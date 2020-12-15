@@ -1,6 +1,7 @@
 import {LOGIN, LOGOUT} from "../actionTypes";
 
 let url = "https://hackernews-asw-12b.herokuapp.com"
+//let url = "http://localhost:3000"
 
 
 export function getUser(id) {
@@ -60,6 +61,8 @@ export function getUserByToken(token) {
             .then(response => {
                 if (response.ok) {
                     response.json().then(json => {
+                        localStorage.setItem("user_id", json.id);
+                        localStorage.setItem("token", json.token);
                         dispatch({type: LOGIN, payload: json});
                     })
                 }

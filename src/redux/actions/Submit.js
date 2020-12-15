@@ -1,4 +1,5 @@
 let baseUrl = "https://hackernews-asw-12b.herokuapp.com";
+// let baseUrl = "http://localhost:3000"
 
 export function submit(title, url, text) {
     let call = baseUrl + "/contributions/";
