@@ -128,18 +128,18 @@ class Replies extends Component {
         this.setState({content: event.target.value})
     }
 
-    like(event) {
+    like() {
         this.props.vote("replies", this.state.replies.id);
         this.setState({liked: true});
     }
 
-    unlike(event) {
+    unlike() {
         this.props.unvote("replies", this.state.replies.id);
         this.setState({liked: false});
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {}
 }
 

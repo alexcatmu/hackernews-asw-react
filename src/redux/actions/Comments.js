@@ -56,12 +56,8 @@ export function postReply(bodyPost) {
             },
             body: data
         })
-            .then(function (response) {
-                if (response.ok){
-                    return response.json()
-                } else {
-                    //tractar unauthorized forbidden
-                }
+            .then(response => {
+                return response;
             })
             .catch(error => console.log('Authorization failed : ' + error.message));
     }

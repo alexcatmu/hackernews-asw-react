@@ -50,9 +50,11 @@ class Comments extends Component {
             comment_id: this.state.comments.id
         }
         this.props.postReply(body)
-            .then((data) => {
-                let path = `/contributions/${this.state.comments.contribution_id}`
-                this.props.history.push(path);
+            .then(response => {
+                if (response.ok) {
+                    let path = `/contributions/${this.state.comments.contribution_id}`
+                    this.props.history.push(path);
+                }
             });
     }
 
@@ -125,18 +127,18 @@ class Comments extends Component {
         this.setState({content: event.target.value})
     }
 
-    like(event) {
+    like() {
         this.props.vote("comments", this.state.comments.id);
         this.setState({liked: true});
     }
 
-    unlike(event) {
+    unlike() {
         this.props.unvote("comments", this.state.comments.id);
         this.setState({liked: false});
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
     return {}
 }
 
