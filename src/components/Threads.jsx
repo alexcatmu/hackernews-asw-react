@@ -49,7 +49,7 @@ export class Threads extends Component {
       <>
         {this.props.threads.map(t => {
             return (
-                <div className={classes.root}>
+                <div key={t.id} className={classes.root}>
                   <Grid
                       container
                       spacing={3}
@@ -70,7 +70,7 @@ export class Threads extends Component {
                                     style={{color: "red", cursor: "pointer", fontSize: "small"}}
                                     onClick={() => this.like(t.id)}/>
                         }
-                        &nbsp;{t.likes} points by&nbsp;
+                        &nbsp;{t.likes + 1} points by&nbsp;
                         <Link color="inherit" href={"/users/" + t.user_id}>
                           {t.username}
                         </Link>

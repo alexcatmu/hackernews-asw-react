@@ -34,7 +34,7 @@ export class UpvotedComments extends Component {
                 {this.props.upvotedComments.map(comment => {
                     if (comment.user_id !== parseInt(localStorage.getItem('user_id'))) {
                         return (
-                            <div className={classes.root}>
+                            <div key={comment.id} className={classes.root}>
                                 <Grid
                                     container
                                     spacing={3}

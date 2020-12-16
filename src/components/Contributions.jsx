@@ -102,9 +102,13 @@ export class Contributions extends Component {
                             <Alert severity={"success"}>Comment successfully saved</Alert>
                         </Grid>
                         :
-                        <>
-                        </>
+                        <></>
                     }
+
+
+
+
+
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
                             {this.state.contribution.user_id === parseInt(localStorage.getItem("user_id")) ?
@@ -120,13 +124,13 @@ export class Contributions extends Component {
                                         onClick={() => this.like("contributions", this.state.contribution.id)}/>
                             }
                             &nbsp;&nbsp;{this.state.contribution.title}&nbsp;&nbsp;
-                            <Link color="inherit" href={this.state.contribution.url}>
-                                {this.state.contribution.url}
+                            <Link color="inherit" href={this.state.contribution?.url}>
+                                <span>{this.state.contribution?.url}</span>
                             </Link>
                             <br/>
                             {this.state.contribution.punctuation} points by&nbsp;
-                            <Link color="inherit" href={"/users/" + this.state.contribution.user_id}>
-                                {this.state.contribution.username}
+                            <Link color="inherit" href={"/users/" + this.state.contribution?.user_id}>
+                                <span>{this.state.contribution?.username}</span>
                             </Link>
                             &nbsp;
                             <Moment
@@ -134,7 +138,7 @@ export class Contributions extends Component {
                                 fromNow
                             />
                             &nbsp;|&nbsp;
-                            <Link color="inherit" href={"/contributions/" + this.state.contribution.id}>
+                            <Link color="inherit" href={"/contributions/" + this.state.contribution?.id}>
                                 {this.state.contribution?.comments?.length} comments
                             </Link>
                             <br/>
@@ -159,6 +163,13 @@ export class Contributions extends Component {
                             </form>
                         </Paper>
                     </Grid>
+
+
+
+
+
+
+
                 </Grid>
                 <Grid
                     container
@@ -196,8 +207,8 @@ export class Contributions extends Component {
                                                             onClick={() => this.like("comments", comment.id)}/>
                                                 }
                                                 &nbsp;&nbsp;
-                                                <Link color="inherit" href={"/users/" + comment.user_id}>
-                                                    {comment.username}
+                                                <Link color="inherit" href={"/users/" + comment?.user_id}>
+                                                    {comment?.username}
                                                 </Link>&nbsp;&nbsp;
                                                 <Moment
                                                     date={comment.created_at}
@@ -206,12 +217,12 @@ export class Contributions extends Component {
                                                 <br/>
                                                 {comment.content}
                                                 <br/>
-                                                <Link color="inherit" href={"/comments/" + comment.id}>
+                                                <Link color="inherit" href={"/comments/" + comment?.id}>
                                                     reply
                                                 </Link>
                                                 {comment.replies?.map(reply => {
                                                     return (
-                                                        <ReplyPaper reply={reply} classes={classes} fun={{"like": this.like, "unlike": this.unlike}}/>
+                                                        <ReplyPaper key={reply.id} reply={reply} classes={classes} fun={{"like": this.like, "unlike": this.unlike}}/>
                                                     );
 
                                                 })}
@@ -255,8 +266,8 @@ function ReplyPaper(props) {
                                     onClick={() => props.fun.like("replies", props.reply.id)}/>
                         }
                         &nbsp;&nbsp;
-                        <Link color="inherit" href={"/users/" + props.reply.user_id}>
-                            {props.reply.username}
+                        <Link color="inherit" href={"/users/" + props.reply?.user_id}>
+                            {props.reply?.username}
                         </Link>&nbsp;&nbsp;
                         <Moment
                             date={props.reply.created_at}
@@ -265,12 +276,12 @@ function ReplyPaper(props) {
                         <br/>
                         {props.reply.content}
                         <br/>
-                        <Link color="inherit" href={"/replies/" + props.reply.id}>
+                        <Link color="inherit" href={"/replies/" + props.reply?.id}>
                             reply
                         </Link>
                         {props.reply.replies?.map(reply => {
                             return (
-                                <ReplyPaper reply={reply} classes={props.classes} fun={{"like": props.fun.like, "unlike": props.fun.unlike}}/>
+                                <ReplyPaper key={reply.id} reply={reply} classes={props.classes} fun={{"like": props.fun.like, "unlike": props.fun.unlike}}/>
                             );
                         })}
                     </Paper>
