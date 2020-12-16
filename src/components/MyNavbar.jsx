@@ -95,11 +95,11 @@ class MyNavbar extends Component {
                             <ListItem key={2} button divider> <Link color="inherit" href={"/threads/:id"}>Threads</Link>
                             </ListItem>
                             <ListItem key={3} button divider> <Link color="inherit" href={"/ask"}>Ask</Link> </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/submit"}>Submit</Link>
+                            <ListItem key={4} button divider> <Link color="inherit" href={"/submit"}>Submit</Link>
                             </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
+                            <ListItem key={5} button divider> <Link color="inherit" href={"/users/" + localStorage.getItem('user_id')}>User</Link>
                             </ListItem>
-                            <ListItem key={3} button divider> <Link color="inherit" href={"/login"}> Manage API key</Link>
+                            <ListItem key={6} button divider> <Link color="inherit" href={"/login"}> Manage API key</Link>
                             </ListItem>
                         </List>
 
