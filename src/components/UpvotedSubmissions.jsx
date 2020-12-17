@@ -60,7 +60,7 @@ class UpvotedSubmissions extends Component {
                                             &nbsp;
                                             <Moment
                                                 date={sub.created_at}
-                                                durationFromNow
+                                                fromNow
                                             />
                                             &nbsp;|&nbsp;
                                             <Link color="inherit" href={"/contributions/" + sub.id}>

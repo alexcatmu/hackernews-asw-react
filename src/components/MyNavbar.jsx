@@ -92,7 +92,7 @@ class MyNavbar extends Component {
                         <List className={this.props.classes.list}>
                             <ListItem key={1} button divider> <Link color="inherit" href={"/newest"}>New</Link>
                             </ListItem>
-                            <ListItem key={2} button divider> <Link color="inherit" href={"/threads/:id"}>Threads</Link>
+                            <ListItem key={2} button divider> <Link color="inherit" href={"/threads/" + localStorage.getItem('user_id')}>Threads</Link>
                             </ListItem>
                             <ListItem key={3} button divider> <Link color="inherit" href={"/ask"}>Ask</Link> </ListItem>
                             <ListItem key={4} button divider> <Link color="inherit" href={"/submit"}>Submit</Link>

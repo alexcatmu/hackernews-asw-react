@@ -76,9 +76,8 @@ export class Threads extends Component {
                         </Link>
                         &nbsp;
                         <Moment
-                            interval={1000}
                             date={t.created_at}
-                            durationFromNow
+                            fromNow
                         />
                         &nbsp;ago | on&nbsp;
                         <Link color="inherit" href={"/contributions/" + t.contribution_id}>

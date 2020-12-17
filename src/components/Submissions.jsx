@@ -77,9 +77,8 @@ export class Submissions extends Component {
                         </Link>
                         &nbsp;
                         <Moment
-                            interval={1000}
                             date={s.created_at}
-                            durationFromNow
+                            fromNow
                         />
                         &nbsp;ago |&nbsp;
                         <Link color="inherit" href={"/contributions/" + s.id}>
